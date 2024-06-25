@@ -15,7 +15,38 @@ class TaskController extends Controller
      */
     public function listAction()
     {
-        return $this->render('task/list.html.twig', ['tasks' => $this->getDoctrine()->getRepository('AppBundle:Task')->findAll()]);
+        $em = $this->getDoctrine()->getManager();
+        $taskRepository = $em->getRepository('AppBundle:Task');
+        $userRepository = $em->getRepository('AppBundle:User');
+
+        $tasks = $taskRepository->findAll();
+
+        $anonymousUser = $userRepository->findOneBy(['username' => 'Anonyme']);
+
+        if (!$anonymousUser) {
+            $anonymousUser = new User;
+            $anonymousUser
+                ->setUsername('Anonyme')
+                ->setEmail('anonymous-user@email.com')
+                ->setPassword(password_hash('password1234', PASSWORD_BCRYPT));
+
+            $em->persist($anonymousUser);
+            $em->flush();
+        }
+
+        foreach ($tasks as $task) {
+            if ($task->getUser() === null) {
+                $task->setUser($anonymousUser);
+
+                $em->persist($task);
+            }
+        }
+
+        $em->flush();
+
+        return $this->render('task/list.html.twig', [
+            'tasks' => $tasks,
+        ]);
     }
 
     /**
