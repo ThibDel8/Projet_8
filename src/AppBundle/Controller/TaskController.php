@@ -84,16 +84,24 @@ class TaskController extends Controller
      */
     public function editAction(Task $task, Request $request)
     {
+        $author = $task->getUser();
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
 
-            $this->addFlash('success', 'La tâche a bien été modifiée.');
+            if ($task->getUser() !== $author) {
+                $task->setUser($author);
+                $this->addFlash('error', 'Vous ne pouvez pas modifier le nom de l\'auteur d\'une tâche !');
+            } else {
+                $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('task_list');
+                $this->addFlash('success', 'La tâche a bien été modifiée.');
+
+                return $this->redirectToRoute('task_list');
+
+            }
         }
 
         return $this->render('task/edit.html.twig', [
