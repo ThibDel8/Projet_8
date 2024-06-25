@@ -3,9 +3,9 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Table("user")
@@ -38,11 +38,6 @@ class User implements UserInterface
      * @Assert\Email(message="Le format de l'adresse n'est pas correcte.")
      */
     private $email;
-
-    /**
-     * @ORM\Column(type="json")
-     */
-    private $roles = [];
 
     public function getId()
     {
@@ -84,21 +79,9 @@ class User implements UserInterface
         $this->email = $email;
     }
 
-    public function getRoles(): array
+    public function getRoles()
     {
-        $roles = $this->roles;
-        if (empty($roles)) {
-            $roles[] = 'ROLE_USER';
-        }
-
-        return array_unique($roles);
-    }
-
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
+        return array('ROLE_USER');
     }
 
     public function eraseCredentials()

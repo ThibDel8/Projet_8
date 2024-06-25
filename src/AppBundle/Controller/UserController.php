@@ -15,9 +15,7 @@ class UserController extends Controller
      */
     public function listAction()
     {
-        return $this->render('user/list.html.twig', [
-            'users' => $this->getDoctrine()->getRepository('AppBundle:User')->findAll(),
-        ]);
+        return $this->render('user/list.html.twig', ['users' => $this->getDoctrine()->getRepository('AppBundle:User')->findAll()]);
     }
 
     /**
@@ -30,23 +28,20 @@ class UserController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $password = $this->get('security.password_encoder')->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
-            $user->setRoles($form->get('roles')->getData());
 
             $em->persist($user);
             $em->flush();
 
-            $this->addFlash('success', "L'utilisateur a bien été ajouté !");
+            $this->addFlash('success', "L'utilisateur a bien été ajouté.");
 
             return $this->redirectToRoute('user_list');
         }
 
-        return $this->render('user/create.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        return $this->render('user/create.html.twig', ['form' => $form->createView()]);
     }
 
     /**
@@ -58,21 +53,17 @@ class UserController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isValid()) {
             $password = $this->get('security.password_encoder')->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
-            $user->setRoles($form->get('roles')->getData());
 
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success', "L'utilisateur a bien été modifié !");
+            $this->addFlash('success', "L'utilisateur a bien été modifié");
 
             return $this->redirectToRoute('user_list');
         }
 
-        return $this->render('user/edit.html.twig', [
-            'form' => $form->createView(),
-            'user' => $user,
-        ]);
+        return $this->render('user/edit.html.twig', ['form' => $form->createView(), 'user' => $user]);
     }
 }
