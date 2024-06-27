@@ -15,7 +15,38 @@ class TaskController extends Controller
      */
     public function listAction()
     {
-        return $this->render('task/list.html.twig', ['tasks' => $this->getDoctrine()->getRepository('AppBundle:Task')->findAll()]);
+        $em = $this->getDoctrine()->getManager();
+        $taskRepository = $em->getRepository('AppBundle:Task');
+        $userRepository = $em->getRepository('AppBundle:User');
+
+        $tasks = $taskRepository->findAll();
+
+        $anonymousUser = $userRepository->findOneBy(['username' => 'Anonyme']);
+
+        if (!$anonymousUser) {
+            $anonymousUser = new User;
+            $anonymousUser
+                ->setUsername('Anonyme')
+                ->setEmail('anonymous-user@email.com')
+                ->setPassword(password_hash('password1234', PASSWORD_BCRYPT));
+
+            $em->persist($anonymousUser);
+            $em->flush();
+        }
+
+        foreach ($tasks as $task) {
+            if ($task->getUser() === null) {
+                $task->setUser($anonymousUser);
+
+                $em->persist($task);
+            }
+        }
+
+        $em->flush();
+
+        return $this->render('task/list.html.twig', [
+            'tasks' => $tasks,
+        ]);
     }
 
     /**
@@ -53,16 +84,24 @@ class TaskController extends Controller
      */
     public function editAction(Task $task, Request $request)
     {
+        $author = $task->getUser();
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
 
-            $this->addFlash('success', 'La tâche a bien été modifiée.');
+            if ($task->getUser() !== $author) {
+                $task->setUser($author);
+                $this->addFlash('error', 'Vous ne pouvez pas modifier le nom de l\'auteur d\'une tâche !');
+            } else {
+                $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('task_list');
+                $this->addFlash('success', 'La tâche a bien été modifiée.');
+
+                return $this->redirectToRoute('task_list');
+
+            }
         }
 
         return $this->render('task/edit.html.twig', [
