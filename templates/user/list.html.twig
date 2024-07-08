@@ -5,6 +5,12 @@
 {% block header_title %}<h1>Liste des utilisateurs</h1>{% endblock %}
 
 {% block body %}
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="alert alert-success" role="alert">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+
     {% if users|length == 0 %}
         <div class="alert alert-warning" role="alert">
             Il n'y a pas encore d'utilisateur enregistré. <a href="{{ path('user_create') }}" class="btn btn-warning pull-right">Créer un utilisateur</a>

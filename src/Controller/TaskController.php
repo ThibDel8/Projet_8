@@ -1,58 +1,30 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace App\Controller;
 
-use AppBundle\Entity\Task;
-use AppBundle\Form\TaskType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use App\Entity\Task;
+use App\Form\TaskType;
+use App\Repository\TaskRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
-class TaskController extends Controller
+class TaskController extends AbstractController
 {
-    /**
-     * @Route("/tasks", name="task_list")
-     */
-    public function listAction()
+    #[Route(path: '/tasks', name: 'task_list')]
+    public function list(TaskRepository $taskRepository): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $taskRepository = $em->getRepository('AppBundle:Task');
-        $userRepository = $em->getRepository('AppBundle:User');
-
         $tasks = $taskRepository->findAll();
-
-        $anonymousUser = $userRepository->findOneBy(['username' => 'Anonyme']);
-
-        if (!$anonymousUser) {
-            $anonymousUser = new User;
-            $anonymousUser
-                ->setUsername('Anonyme')
-                ->setEmail('anonymous-user@email.com')
-                ->setPassword(password_hash('password1234', PASSWORD_BCRYPT));
-
-            $em->persist($anonymousUser);
-            $em->flush();
-        }
-
-        foreach ($tasks as $task) {
-            if ($task->getUser() === null) {
-                $task->setUser($anonymousUser);
-
-                $em->persist($task);
-            }
-        }
-
-        $em->flush();
 
         return $this->render('task/list.html.twig', [
             'tasks' => $tasks,
         ]);
     }
 
-    /**
-     * @Route("/tasks/create", name="task_create")
-     */
-    public function createAction(Request $request)
+    #[Route(path: '/tasks/create', name: 'task_create')]
+    public function create(Request $request, EntityManagerInterface $em): Response
     {
         $task = new Task();
 
@@ -61,10 +33,7 @@ class TaskController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $task->setUser($this->getUser());
-
-            $em = $this->getDoctrine()->getManager();
 
             $em->persist($task);
             $em->flush();
@@ -79,29 +48,26 @@ class TaskController extends Controller
         ]);
     }
 
-    /**
-     * @Route("/tasks/{id}/edit", name="task_edit")
-     */
-    public function editAction(Task $task, Request $request)
+    #[Route(path: '/tasks/{id}/edit', name: 'task_edit')]
+    public function edit(Task $task, Request $request, EntityManagerInterface $em): Response
     {
+        $currentUser = $this->getUser();
         $author = $task->getUser();
+
+        if ($author !== $currentUser) {
+            $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        }
+
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
 
-            if ($task->getUser() !== $author) {
-                $task->setUser($author);
-                $this->addFlash('error', 'Vous ne pouvez pas modifier le nom de l\'auteur d\'une tâche !');
-            } else {
-                $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'La tâche a bien été modifiée.');
 
-                $this->addFlash('success', 'La tâche a bien été modifiée.');
-
-                return $this->redirectToRoute('task_list');
-
-            }
+            return $this->redirectToRoute('task_list');
         }
 
         return $this->render('task/edit.html.twig', [
@@ -110,43 +76,34 @@ class TaskController extends Controller
         ]);
     }
 
-    /**
-     * @Route("/tasks/{id}/toggle", name="task_toggle")
-     */
-    public function toggleTaskAction(Task $task)
+    #[Route(path: '/tasks/{id}/toggle', name: 'task_toggle')]
+    public function toggleTask(Task $task, EntityManagerInterface $em): Response
     {
         $task->toggle(!$task->isDone());
-        $this->getDoctrine()->getManager()->flush();
+        $em->flush();
 
         $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
 
         return $this->redirectToRoute('task_list');
     }
 
-    /**
-     * @Route("/tasks/{id}/delete", name="task_delete")
-     */
-    public function deleteTaskAction(Task $task)
+    #[Route(path: '/tasks/{id}/delete', name: 'task_delete')]
+    public function deleteTask(Task $task, EntityManagerInterface $em): Response
     {
-        $author = $task->getUser();
         $user = $this->getUser();
-        $roles = $user->getRoles();
-        $isAdmin = in_array('ROLE_ADMIN', $roles);
+        $isAnonymeAuthor = $task->getUser()->getUsername() === 'Anonyme';
+        $isAdmin = $this->isGranted('ROLE_ADMIN');
 
-        if (($author->getUsername() === 'Anonyme' && $isAdmin) || $user === $author) {
-            $em = $this->getDoctrine()->getManager();
-
+        if ((false === $isAnonymeAuthor && $user === $task->getUser()) || true === $isAdmin) {
             $em->remove($task);
             $em->flush();
 
             $this->addFlash('success', 'La tâche a bien été supprimée !');
-
-            return $this->redirectToRoute('task_list');
+        } else {
+            $this->addFlash('error', 'Vous ne pouvez pas supprimer cette tâche !');
+            return new Response('Forbidden', Response::HTTP_FORBIDDEN);
         }
-
-        $this->addFlash('error', 'Vous ne pouvez pas supprimer cette tâche !');
 
         return $this->redirectToRoute('task_list');
     }
-
 }
