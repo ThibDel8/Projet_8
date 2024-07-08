@@ -1,31 +1,34 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace App\Controller;
 
-use AppBundle\Entity\User;
-use AppBundle\Form\UserType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use App\Entity\User;
+use App\Form\UserType;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-class UserController extends Controller
+class UserController extends AbstractController
 {
-    /**
-     * @Route("/users", name="user_list")
-     * @Security("is_granted('ROLE_ADMIN')")
-     */
-    public function listAction()
+    #[Route(path: '/users', name: 'user_list')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function list(UserRepository $repository): Response
     {
+        $users = $repository->findAll();
+
         return $this->render('user/list.html.twig', [
-            'users' => $this->getDoctrine()->getRepository('AppBundle:User')->findAll(),
+            'users' => $users,
         ]);
     }
 
-    /**
-     * @Route("/users/create", name="user_create")
-     * @Security("is_granted('ROLE_ADMIN')")
-     */
-    public function createAction(Request $request)
+    #[Route(path: '/users/create', name: 'user_create')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function create(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -33,9 +36,8 @@ class UserController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $password = $this->get('security.password_encoder')->encodePassword($user, $user->getPassword());
-            $user->setPassword($password);
+            $hashedPassword = $passwordHasher->hashPassword($user, $user->getPassword());
+            $user->setPassword($hashedPassword);
             $user->setRoles($form->get('roles')->getData());
 
             $em->persist($user);
@@ -51,22 +53,20 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * @Route("/users/{id}/edit", name="user_edit")
-     * @Security("is_granted('ROLE_ADMIN')")
-     */
-    public function editAction(User $user, Request $request)
+    #[Route(path: '/users/{id}/edit', name: 'user_edit')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function edit(User $user, Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher): Response
     {
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $password = $this->get('security.password_encoder')->encodePassword($user, $user->getPassword());
-            $user->setPassword($password);
+            $hashedPassword = $passwordHasher->hashPassword($user, $user->getPassword());
+            $user->setPassword($hashedPassword);
             $user->setRoles($form->get('roles')->getData());
 
-            $this->getDoctrine()->getManager()->flush();
+            $em->flush();
 
             $this->addFlash('success', "L'utilisateur a bien été modifié !");
 
