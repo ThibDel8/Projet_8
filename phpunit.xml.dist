@@ -19,12 +19,8 @@
 
     <testsuites>
         <testsuite name="Project Test Suite">
-<<<<<<< Updated upstream
-            <directory>tests</directory>
-=======
             <directory>./Tests/Functional</directory>
             <directory>./Tests/Unit</directory>
->>>>>>> Stashed changes
         </testsuite>
     </testsuites>
 
@@ -38,7 +34,7 @@
     </coverage>
 
     <listeners>
-        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener"/>
+        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
     </listeners>
 
     <extensions>
