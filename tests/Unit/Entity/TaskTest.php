@@ -5,29 +5,76 @@ namespace App\Tests\Unit\Entity;
 use App\Entity\Task;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class TaskTest extends KernelTestCase
 {
-    public function testEntityIsValid(): void
+    private ValidatorInterface $validator;
+
+    protected function setUp(): void
     {
-        self::bootKernel();
-        $container = static::getContainer();
+        parent::setUp();
+        $this->validator = self::getContainer()->get(ValidatorInterface::class);
+    }
 
-        $user = new User();
-        $user
-            ->setUsername('Username_1')
-            ->setPassword('password1234')
-            ->setEmail('username_1@email.com')
-            ->setRoles(['ROLE_USER']);
-
+    public function testTitleCanBeSet(): void
+    {
         $task = new Task();
-        $task
-            ->setTitle('Title_1')
-            ->setContent('Content_1')
-            ->setUser($user);
+        $task->setTitle('Test Title');
 
-        $errors = $container->get('validator')->validate($task);
+        $this->assertEquals('Test Title', $task->getTitle());
+    }
 
-        $this->assertCount(0, $errors);
+    public function testContentCanBeSet(): void
+    {
+        $task = new Task();
+        $task->setContent('This is the task content.');
+
+        $this->assertEquals('This is the task content.', $task->getContent());
+    }
+
+    public function testIsDoneDefaultValue(): void
+    {
+        $task = new Task();
+        $this->assertFalse($task->isDone());
+    }
+
+    public function testToggle(): void
+    {
+        $task = new Task();
+        $task->toggle(true);
+        $this->assertTrue($task->isDone());
+
+        $task->toggle(false);
+        $this->assertFalse($task->isDone());
+    }
+
+    public function testUserCanBeSet(): void
+    {
+        $task = new Task();
+        $user = new User();
+        $task->setUser($user);
+
+        $this->assertSame($user, $task->getUser());
+    }
+
+    public function testTitleValidation(): void
+    {
+        $task = new Task();
+        $task->setContent('Valid content.');
+
+        $violations = $this->validator->validate($task);
+        $this->assertCount(1, $violations);
+        $this->assertEquals("Vous devez saisir un titre.", $violations[0]->getMessage());
+    }
+
+    public function testContentValidation(): void
+    {
+        $task = new Task();
+        $task->setTitle('Valid Title');
+
+        $violations = $this->validator->validate($task);
+        $this->assertCount(1, $violations);
+        $this->assertEquals("Vous devez saisir du contenu.", $violations[0]->getMessage());
     }
 }

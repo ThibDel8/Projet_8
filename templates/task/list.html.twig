@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
+{% block content %}
     <div class="row">
         {% for flash_message in app.session.flashBag.get('success') %}
             <div class="alert alert-success" role="alert">
