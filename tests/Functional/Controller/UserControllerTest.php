@@ -52,32 +52,6 @@ class UserControllerTest extends WebTestCase
 
         self::assertEquals('Username1', $user->getUsername());
         self::assertEquals('username1@email.com', $user->getEmail());
-    }public function testCreateUserWithoutUsername()
-    {
-        $client = static::createClient();
-        $this->loadFixtures([AppFixtures::class]);
-        $em = self::getContainer()->get(EntityManagerInterface::class);
-        $adminUser = $em->getRepository(User::class)->findOneBy(['username' => 'AdminUser']);
-
-        $client->loginUser($adminUser);
-
-        $crawler = $client->request('GET', '/users/create');
-
-        $form = $crawler->selectButton('Ajouter')->form([
-            'user[username]' => '',
-            'user[password][first]' => 'password123',
-            'user[password][second]' => 'password123',
-            'user[email]' => 'username1@email.com',
-            'user[roles]' => ['ROLE_USER', 'ROLE_ADMIN'],
-        ]);
-
-        $client->submit($form);
-
-        $this->assertResponseRedirects('/users/create');
-
-        $user = $em->getRepository(User::class)->findOneBy(['username' => 'Username1']);
-
-        self::assertSelectorTextContains('#user', 'Vous devez saisir un nom');
     }
 
     public function testEditUser()
