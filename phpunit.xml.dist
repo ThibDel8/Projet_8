@@ -32,6 +32,9 @@
         <include>
             <directory suffix=".php">src</directory>
         </include>
+        <exclude>
+            <directory>./src/Command</directory>
+        </exclude>
     </coverage>
 
     <listeners>

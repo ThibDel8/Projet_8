@@ -2,6 +2,18 @@
 
 {% block content %}
     <div class="row">
+        {% for flash_message in app.session.flashBag.get('success') %}
+            <div class="alert alert-success" role="alert">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
+
+        {% for flash_message in app.session.flashBag.get('error') %}
+            <div class="alert alert-danger" role="alert">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
+
         {{ form_start(form, {'action' : path('task_create')}) }}
             {{ form_widget(form) }}
 
