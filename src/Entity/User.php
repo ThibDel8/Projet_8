@@ -103,5 +103,23 @@ class User implements UserInterface
 
     public function eraseCredentials()
     {
+<<<<<<< Updated upstream
+=======
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials(): void
+    {
+>>>>>>> Stashed changes
     }
 }
