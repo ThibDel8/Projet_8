@@ -1,5 +1,11 @@
 {% extends 'base.html.twig' %}
 
+{% block header_img %}{% endblock %}
+
+{% block header_title %}
+    <h1>Créer une tâche</h1>
+{% endblock %}
+
 {% block content %}
     <div class="row">
         {% for flash_message in app.session.flashBag.get('success') %}

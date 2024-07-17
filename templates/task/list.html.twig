@@ -1,5 +1,11 @@
 {% extends 'base.html.twig' %}
 
+{% block header_img %}{% endblock %}
+
+{% block header_title %}
+    <h1>Liste des tâches</h1>
+{% endblock %}
+
 {% block content %}
     <div class="row">
         {% for flash_message in app.session.flashBag.get('success') %}
@@ -11,18 +17,16 @@
         <a href="{{ path('task_create') }}" class="btn btn-info pull-right">Créer une tâche</a>
     </div>
 
-    <div class="row">
+    <div class="row task_list">
         {% for task in tasks %}
             <div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="thumbnail">
                     <div class="caption">
-                        <h4 class="pull-right">
                             {% if task.isDone %}
-                                <span class="glyphicon glyphicon-ok"></span>
-                            {% else %}
-                                <span class="glyphicon glyphicon-remove"></span>
+                                <h4 class="pull-right is_done">
+                                    <span class="glyphicon glyphicon-ok">Is done !</span>
+                                </h4>
                             {% endif %}
-                        </h4>
                         <h4><a href="{{ path('task_edit', {'id' : task.id }) }}">{{ task.title }}</a></h4>
                         <p>{{ task.content }}</p>
                     </div>
