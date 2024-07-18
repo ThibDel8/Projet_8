@@ -25,7 +25,7 @@ class UserControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
     }
 
-    public function testCreateUser()
+    public function testCreateUser(): void
     {
         $client = static::createClient();
         $this->loadFixtures([AppFixtures::class]);
@@ -54,7 +54,7 @@ class UserControllerTest extends WebTestCase
         self::assertEquals('username1@email.com', $user->getEmail());
     }
 
-    public function testEditUser()
+    public function testEditUser(): void
     {
         $client = static::createClient();
         $this->loadFixtures([AppFixtures::class]);
