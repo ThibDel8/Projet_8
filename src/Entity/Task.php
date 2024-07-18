@@ -19,11 +19,11 @@ class Task
     private ?\DateTimeInterface $createdAt;
 
     #[ORM\Column(type : Types::STRING, length: 255)]
-    #[Assert\NotBlank(message: "Vous devez saisir un titre.")]
+    #[Assert\NotBlank(message: 'Vous devez saisir un titre.')]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\NotBlank(message: "Vous devez saisir du contenu.")]
+    #[Assert\NotBlank(message: 'Vous devez saisir du contenu.')]
     private ?string $content = null;
 
     #[ORM\Column(type: Types::BOOLEAN)]
@@ -52,6 +52,7 @@ class Task
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
         return $this;
     }
 
@@ -63,6 +64,7 @@ class Task
     public function setContent(string $content): self
     {
         $this->content = $content;
+
         return $this;
     }
 
@@ -74,6 +76,7 @@ class Task
     public function toggle(bool $flag): self
     {
         $this->isDone = $flag;
+
         return $this;
     }
 
@@ -85,6 +88,7 @@ class Task
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
         return $this;
     }
 }

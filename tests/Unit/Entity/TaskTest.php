@@ -65,7 +65,7 @@ class TaskTest extends KernelTestCase
 
         $violations = $this->validator->validate($task);
         $this->assertCount(1, $violations);
-        $this->assertEquals("Vous devez saisir un titre.", $violations[0]->getMessage());
+        $this->assertEquals('Vous devez saisir un titre.', $violations[0]->getMessage());
     }
 
     public function testContentValidation(): void
@@ -75,6 +75,6 @@ class TaskTest extends KernelTestCase
 
         $violations = $this->validator->validate($task);
         $this->assertCount(1, $violations);
-        $this->assertEquals("Vous devez saisir du contenu.", $violations[0]->getMessage());
+        $this->assertEquals('Vous devez saisir du contenu.', $violations[0]->getMessage());
     }
 }

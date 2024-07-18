@@ -52,7 +52,7 @@ class AssignUserToTasksCommand extends Command
         }
 
         foreach ($tasks as $task) {
-            if ($task->getUser() === null) {
+            if (null === $task->getUser()) {
                 $task->setUser($anonymousUser);
                 $this->em->persist($task);
             }

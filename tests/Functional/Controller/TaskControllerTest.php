@@ -34,7 +34,6 @@ class TaskControllerTest extends WebTestCase
 
     public function testCreateTask(): void
     {
-
         $client = static::createClient();
         $this->loadFixtures([AppFixtures::class]);
         $container = self::getContainer();
@@ -48,7 +47,6 @@ class TaskControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
 
         $form = $crawler->selectButton('Ajouter')->form([
-
             'task[title]' => 'Test Task',
             'task[content]' => 'This is a test task',
         ]);
@@ -60,7 +58,6 @@ class TaskControllerTest extends WebTestCase
         $client->followRedirect();
 
         $this->assertSelectorTextContains('.alert-success', 'La tâche a bien été ajoutée.');
-
     }
 
     public function testEditTaskByAdminOrTheAuthor(): void
@@ -77,7 +74,7 @@ class TaskControllerTest extends WebTestCase
 
         $this->assertSame($user, $task->getUser());
 
-        $crawler = $client->request('GET', '/tasks/' . $task->getId() . '/edit');
+        $crawler = $client->request('GET', '/tasks/'.$task->getId().'/edit');
 
         $this->assertResponseIsSuccessful();
 
@@ -99,7 +96,6 @@ class TaskControllerTest extends WebTestCase
         $task->setUser($user);
 
         $this->assertSelectorTextContains('.alert-success', 'La tâche a bien été modifiée.');
-
     }
 
     public function testUnauthorizedUserCannotEditTask(): void
@@ -114,7 +110,7 @@ class TaskControllerTest extends WebTestCase
 
         $client->loginUser($user);
 
-        $client->request('GET', '/tasks/' . $task->getId() . '/edit');
+        $client->request('GET', '/tasks/'.$task->getId().'/edit');
 
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
@@ -131,7 +127,7 @@ class TaskControllerTest extends WebTestCase
 
         $client->loginUser($user);
 
-        $client->request('GET', '/tasks/' . $task->getId() . '/toggle');
+        $client->request('GET', '/tasks/'.$task->getId().'/toggle');
 
         $em->refresh($task);
 
@@ -144,7 +140,6 @@ class TaskControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
 
         $this->assertSelectorTextContains('.alert-success', 'La tâche Title a bien été marquée comme faite.');
-
     }
 
     public function testDeleteTaskByAdminOrTheAuthor(): void
@@ -158,14 +153,13 @@ class TaskControllerTest extends WebTestCase
 
         $client->loginUser($adminUser);
 
-        $client->request('GET', '/tasks/' . $task->getId() . '/delete');
+        $client->request('GET', '/tasks/'.$task->getId().'/delete');
 
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
 
         $client->followRedirect();
 
         $this->assertSelectorTextContains('.alert-success', 'La tâche a bien été supprimée !');
-
     }
 
     public function testUnauthorizedUserCannotDeleteTask(): void
@@ -179,7 +173,7 @@ class TaskControllerTest extends WebTestCase
 
         $client->loginUser($user);
 
-        $client->request('GET', '/tasks/' . $task->getId() . '/delete');
+        $client->request('GET', '/tasks/'.$task->getId().'/delete');
 
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }

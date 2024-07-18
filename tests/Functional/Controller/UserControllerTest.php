@@ -64,7 +64,7 @@ class UserControllerTest extends WebTestCase
 
         $client->loginUser($adminUser);
 
-        $crawler = $client->request('GET', '/users/' . $user->getId() . '/edit');
+        $crawler = $client->request('GET', '/users/'.$user->getId().'/edit');
 
         $form = $crawler->selectButton('Modifier')->form([
             'user[username]' => 'UsernameEdited',
@@ -83,5 +83,4 @@ class UserControllerTest extends WebTestCase
         self::assertEquals('UsernameEdited', $user->getUsername());
         self::assertEquals('username1@email.com', $user->getEmail());
     }
-
 }

@@ -27,8 +27,8 @@ class TaskController extends AbstractController
     public function create(Request $request, EntityManagerInterface $em): Response
     {
         if (empty($this->getUser())) {
-
             $this->addFlash('error', 'Vous devez être connecté pour créer une tâche.');
+
             return $this->redirectToRoute('login');
         }
         $task = new Task();
@@ -96,7 +96,7 @@ class TaskController extends AbstractController
     public function deleteTask(Task $task, EntityManagerInterface $em): Response
     {
         $user = $this->getUser();
-        $isAnonymeAuthor = $task->getUser()->getUsername() === 'Anonyme';
+        $isAnonymeAuthor = 'Anonyme' === $task->getUser()->getUsername();
         $isAdmin = $this->isGranted('ROLE_ADMIN');
 
         if ((false === $isAnonymeAuthor && $user === $task->getUser()) || true === $isAdmin) {
@@ -106,6 +106,7 @@ class TaskController extends AbstractController
             $this->addFlash('success', 'La tâche a bien été supprimée !');
         } else {
             $this->addFlash('error', 'Vous ne pouvez pas supprimer cette tâche !');
+
             return new Response('Forbidden', Response::HTTP_FORBIDDEN);
         }
 

@@ -19,7 +19,7 @@ trait FixturesTrait
         $loader = new \Doctrine\Common\DataFixtures\Loader();
 
         foreach ($classNames as $className) {
-            if ($className === \App\DataFixtures\AppFixtures::class) {
+            if (\App\DataFixtures\AppFixtures::class === $className) {
                 $fixture = new $className($passwordHasher);
             } else {
                 $fixture = new $className();

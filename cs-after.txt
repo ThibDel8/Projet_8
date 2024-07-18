@@ -1,0 +1,323 @@
+diff --git a/public/index.php b/public/index.php
+index 7fbc8cf..9982c21 100644
+--- a/public/index.php
++++ b/public/index.php
+@@ -2,7 +2,7 @@
+ 
+ use App\Kernel;
+ 
+-require_once dirname(__DIR__) . '/vendor/autoload_runtime.php';
++require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
+ 
+ return function (array $context) {
+     return new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
+diff --git a/src/Command/AssignUserToTasksCommand.php b/src/Command/AssignUserToTasksCommand.php
+index 8cc2fb0..7177803 100644
+--- a/src/Command/AssignUserToTasksCommand.php
++++ b/src/Command/AssignUserToTasksCommand.php
+@@ -52,7 +52,7 @@ class AssignUserToTasksCommand extends Command
+         }
+ 
+         foreach ($tasks as $task) {
+-            if ($task->getUser() === null) {
++            if (null === $task->getUser()) {
+                 $task->setUser($anonymousUser);
+                 $this->em->persist($task);
+             }
+diff --git a/src/Controller/TaskController.php b/src/Controller/TaskController.php
+index 4e41e8c..c2e7f65 100644
+--- a/src/Controller/TaskController.php
++++ b/src/Controller/TaskController.php
+@@ -27,8 +27,8 @@ class TaskController extends AbstractController
+     public function create(Request $request, EntityManagerInterface $em): Response
+     {
+         if (empty($this->getUser())) {
+-
+             $this->addFlash('error', 'Vous devez être connecté pour créer une tâche.');
++
+             return $this->redirectToRoute('login');
+         }
+         $task = new Task();
+@@ -96,7 +96,7 @@ class TaskController extends AbstractController
+     public function deleteTask(Task $task, EntityManagerInterface $em): Response
+     {
+         $user = $this->getUser();
+-        $isAnonymeAuthor = $task->getUser()->getUsername() === 'Anonyme';
++        $isAnonymeAuthor = 'Anonyme' === $task->getUser()->getUsername();
+         $isAdmin = $this->isGranted('ROLE_ADMIN');
+ 
+         if ((false === $isAnonymeAuthor && $user === $task->getUser()) || true === $isAdmin) {
+@@ -106,6 +106,7 @@ class TaskController extends AbstractController
+             $this->addFlash('success', 'La tâche a bien été supprimée !');
+         } else {
+             $this->addFlash('error', 'Vous ne pouvez pas supprimer cette tâche !');
++
+             return new Response('Forbidden', Response::HTTP_FORBIDDEN);
+         }
+ 
+diff --git a/src/Entity/Task.php b/src/Entity/Task.php
+index 0b1312f..b7c529f 100644
+--- a/src/Entity/Task.php
++++ b/src/Entity/Task.php
+@@ -19,11 +19,11 @@ class Task
+     private ?\DateTimeInterface $createdAt;
+ 
+     #[ORM\Column(type : Types::STRING, length: 255)]
+-    #[Assert\NotBlank(message: "Vous devez saisir un titre.")]
++    #[Assert\NotBlank(message: 'Vous devez saisir un titre.')]
+     private ?string $title = null;
+ 
+     #[ORM\Column(type: Types::TEXT)]
+-    #[Assert\NotBlank(message: "Vous devez saisir du contenu.")]
++    #[Assert\NotBlank(message: 'Vous devez saisir du contenu.')]
+     private ?string $content = null;
+ 
+     #[ORM\Column(type: Types::BOOLEAN)]
+@@ -52,6 +52,7 @@ class Task
+     public function setTitle(string $title): self
+     {
+         $this->title = $title;
++
+         return $this;
+     }
+ 
+@@ -63,6 +64,7 @@ class Task
+     public function setContent(string $content): self
+     {
+         $this->content = $content;
++
+         return $this;
+     }
+ 
+@@ -74,6 +76,7 @@ class Task
+     public function toggle(bool $flag): self
+     {
+         $this->isDone = $flag;
++
+         return $this;
+     }
+ 
+@@ -85,6 +88,7 @@ class Task
+     public function setUser(?User $user): self
+     {
+         $this->user = $user;
++
+         return $this;
+     }
+ }
+diff --git a/src/Entity/User.php b/src/Entity/User.php
+index 93006b7..bd69bde 100644
+--- a/src/Entity/User.php
++++ b/src/Entity/User.php
+@@ -24,7 +24,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
+     private ?string $password = null;
+ 
+     #[ORM\Column(length: 60, unique: true)]
+-    #[Assert\NotBlank(message: "Vous devez saisir une adresse email.")]
++    #[Assert\NotBlank(message: 'Vous devez saisir une adresse email.')]
+     #[Assert\Email(message: "Le format de l'adresse n'est pas correct.")]
+     private ?string $email = null;
+ 
+@@ -44,6 +44,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
+     public function setUsername(?string $username): static
+     {
+         $this->username = $username;
++
+         return $this;
+     }
+ 
+@@ -55,11 +56,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
+     public function setEmail(?string $email): static
+     {
+         $this->email = $email;
++
+         return $this;
+     }
+ 
+     /**
+-     * The public representation of the user (e.g. a username, an email address, etc.)
++     * The public representation of the user (e.g. a username, an email address, etc.).
+      *
+      * @see UserInterface
+      */
+diff --git a/src/Form/UserType.php b/src/Form/UserType.php
+index 6a82a62..484781b 100644
+--- a/src/Form/UserType.php
++++ b/src/Form/UserType.php
+@@ -18,7 +18,7 @@ class UserType extends AbstractType
+     {
+         $builder
+             ->add('username', TextType::class, [
+-                'label' => "Username",
++                'label' => 'Username',
+                 'attr' => [
+                     'placeholder' => 'Enter the username',
+                 ],
+diff --git a/tests/FixturesTrait.php b/tests/FixturesTrait.php
+index b9146ae..1cdfbe8 100644
+--- a/tests/FixturesTrait.php
++++ b/tests/FixturesTrait.php
+@@ -19,7 +19,7 @@ trait FixturesTrait
+         $loader = new \Doctrine\Common\DataFixtures\Loader();
+ 
+         foreach ($classNames as $className) {
+-            if ($className === \App\DataFixtures\AppFixtures::class) {
++            if (\App\DataFixtures\AppFixtures::class === $className) {
+                 $fixture = new $className($passwordHasher);
+             } else {
+                 $fixture = new $className();
+diff --git a/tests/Functional/Controller/TaskControllerTest.php b/tests/Functional/Controller/TaskControllerTest.php
+index 195ef80..4a8b60b 100644
+--- a/tests/Functional/Controller/TaskControllerTest.php
++++ b/tests/Functional/Controller/TaskControllerTest.php
+@@ -34,7 +34,6 @@ class TaskControllerTest extends WebTestCase
+ 
+     public function testCreateTask(): void
+     {
+-
+         $client = static::createClient();
+         $this->loadFixtures([AppFixtures::class]);
+         $container = self::getContainer();
+@@ -48,7 +47,6 @@ class TaskControllerTest extends WebTestCase
+         $this->assertResponseIsSuccessful();
+ 
+         $form = $crawler->selectButton('Ajouter')->form([
+-
+             'task[title]' => 'Test Task',
+             'task[content]' => 'This is a test task',
+         ]);
+@@ -60,7 +58,6 @@ class TaskControllerTest extends WebTestCase
+         $client->followRedirect();
+ 
+         $this->assertSelectorTextContains('.alert-success', 'La tâche a bien été ajoutée.');
+-
+     }
+ 
+     public function testEditTaskByAdminOrTheAuthor(): void
+@@ -77,7 +74,7 @@ class TaskControllerTest extends WebTestCase
+ 
+         $this->assertSame($user, $task->getUser());
+ 
+-        $crawler = $client->request('GET', '/tasks/' . $task->getId() . '/edit');
++        $crawler = $client->request('GET', '/tasks/'.$task->getId().'/edit');
+ 
+         $this->assertResponseIsSuccessful();
+ 
+@@ -99,7 +96,6 @@ class TaskControllerTest extends WebTestCase
+         $task->setUser($user);
+ 
+         $this->assertSelectorTextContains('.alert-success', 'La tâche a bien été modifiée.');
+-
+     }
+ 
+     public function testUnauthorizedUserCannotEditTask(): void
+@@ -114,7 +110,7 @@ class TaskControllerTest extends WebTestCase
+ 
+         $client->loginUser($user);
+ 
+-        $client->request('GET', '/tasks/' . $task->getId() . '/edit');
++        $client->request('GET', '/tasks/'.$task->getId().'/edit');
+ 
+         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
+     }
+@@ -131,7 +127,7 @@ class TaskControllerTest extends WebTestCase
+ 
+         $client->loginUser($user);
+ 
+-        $client->request('GET', '/tasks/' . $task->getId() . '/toggle');
++        $client->request('GET', '/tasks/'.$task->getId().'/toggle');
+ 
+         $em->refresh($task);
+ 
+@@ -144,7 +140,6 @@ class TaskControllerTest extends WebTestCase
+         $this->assertResponseIsSuccessful();
+ 
+         $this->assertSelectorTextContains('.alert-success', 'La tâche Title a bien été marquée comme faite.');
+-
+     }
+ 
+     public function testDeleteTaskByAdminOrTheAuthor(): void
+@@ -158,14 +153,13 @@ class TaskControllerTest extends WebTestCase
+ 
+         $client->loginUser($adminUser);
+ 
+-        $client->request('GET', '/tasks/' . $task->getId() . '/delete');
++        $client->request('GET', '/tasks/'.$task->getId().'/delete');
+ 
+         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
+ 
+         $client->followRedirect();
+ 
+         $this->assertSelectorTextContains('.alert-success', 'La tâche a bien été supprimée !');
+-
+     }
+ 
+     public function testUnauthorizedUserCannotDeleteTask(): void
+@@ -179,7 +173,7 @@ class TaskControllerTest extends WebTestCase
+ 
+         $client->loginUser($user);
+ 
+-        $client->request('GET', '/tasks/' . $task->getId() . '/delete');
++        $client->request('GET', '/tasks/'.$task->getId().'/delete');
+ 
+         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
+     }
+diff --git a/tests/Functional/Controller/UserControllerTest.php b/tests/Functional/Controller/UserControllerTest.php
+index 5d500ce..c2f6bee 100644
+--- a/tests/Functional/Controller/UserControllerTest.php
++++ b/tests/Functional/Controller/UserControllerTest.php
+@@ -64,7 +64,7 @@ class UserControllerTest extends WebTestCase
+ 
+         $client->loginUser($adminUser);
+ 
+-        $crawler = $client->request('GET', '/users/' . $user->getId() . '/edit');
++        $crawler = $client->request('GET', '/users/'.$user->getId().'/edit');
+ 
+         $form = $crawler->selectButton('Modifier')->form([
+             'user[username]' => 'UsernameEdited',
+@@ -83,5 +83,4 @@ class UserControllerTest extends WebTestCase
+         self::assertEquals('UsernameEdited', $user->getUsername());
+         self::assertEquals('username1@email.com', $user->getEmail());
+     }
+-
+ }
+diff --git a/tests/Unit/Entity/TaskTest.php b/tests/Unit/Entity/TaskTest.php
+index 298dd12..11a5364 100644
+--- a/tests/Unit/Entity/TaskTest.php
++++ b/tests/Unit/Entity/TaskTest.php
+@@ -65,7 +65,7 @@ class TaskTest extends KernelTestCase
+ 
+         $violations = $this->validator->validate($task);
+         $this->assertCount(1, $violations);
+-        $this->assertEquals("Vous devez saisir un titre.", $violations[0]->getMessage());
++        $this->assertEquals('Vous devez saisir un titre.', $violations[0]->getMessage());
+     }
+ 
+     public function testContentValidation(): void
+@@ -75,6 +75,6 @@ class TaskTest extends KernelTestCase
+ 
+         $violations = $this->validator->validate($task);
+         $this->assertCount(1, $violations);
+-        $this->assertEquals("Vous devez saisir du contenu.", $violations[0]->getMessage());
++        $this->assertEquals('Vous devez saisir du contenu.', $violations[0]->getMessage());
+     }
+ }
+diff --git a/tests/bootstrap.php b/tests/bootstrap.php
+index 5160486..469dcce 100644
+--- a/tests/bootstrap.php
++++ b/tests/bootstrap.php
+@@ -2,10 +2,10 @@
+ 
+ use Symfony\Component\Dotenv\Dotenv;
+ 
+-require dirname(__DIR__) . '/vendor/autoload.php';
++require dirname(__DIR__).'/vendor/autoload.php';
+ 
+-if (file_exists(dirname(__DIR__) . '/config/bootstrap.php')) {
+-    require dirname(__DIR__) . '/config/bootstrap.php';
++if (file_exists(dirname(__DIR__).'/config/bootstrap.php')) {
++    require dirname(__DIR__).'/config/bootstrap.php';
+ } elseif (method_exists(Dotenv::class, 'bootEnv')) {
+-    (new Dotenv())->bootEnv(dirname(__DIR__) . '/.env');
++    (new Dotenv())->bootEnv(dirname(__DIR__).'/.env');
+ }
