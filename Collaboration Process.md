@@ -73,9 +73,7 @@ Exemple:
 php-cs-fixer fix
 ```
 
-- **Intégration Continue (CI) :**
-
-Configurez un outil d'intégration continue (comme GitHub Actions) pour exécuter automatiquement les tests et le linting.
+Les noms de variables et de fonctions doivent être écris en camelCase.
 
 ### 3. Documentation
 

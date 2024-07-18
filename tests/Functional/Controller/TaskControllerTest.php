@@ -32,7 +32,7 @@ class TaskControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
     }
 
-    public function testCreateTask()
+    public function testCreateTask(): void
     {
 
         $client = static::createClient();
@@ -63,7 +63,7 @@ class TaskControllerTest extends WebTestCase
 
     }
 
-    public function testEditTaskByAdminOrTheAuthor()
+    public function testEditTaskByAdminOrTheAuthor(): void
     {
         $client = static::createClient();
         $this->loadFixtures([AppFixtures::class]);
@@ -102,7 +102,7 @@ class TaskControllerTest extends WebTestCase
 
     }
 
-    public function testUnauthorizedUserCannotEditTask()
+    public function testUnauthorizedUserCannotEditTask(): void
     {
         $client = static::createClient();
         $this->loadFixtures([AppFixtures::class]);
@@ -119,7 +119,7 @@ class TaskControllerTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
-    public function testToggleTask()
+    public function testToggleTask(): void
     {
         $client = static::createClient();
         $this->loadFixtures([AppFixtures::class]);
@@ -147,7 +147,7 @@ class TaskControllerTest extends WebTestCase
 
     }
 
-    public function testDeleteTaskByAdminOrTheAuthor()
+    public function testDeleteTaskByAdminOrTheAuthor(): void
     {
         $client = static::createClient();
         $this->loadFixtures([AppFixtures::class]);
@@ -168,7 +168,7 @@ class TaskControllerTest extends WebTestCase
 
     }
 
-    public function testUnauthorizedUserCannotDeleteTask()
+    public function testUnauthorizedUserCannotDeleteTask(): void
     {
         $client = static::createClient();
         $this->loadFixtures([AppFixtures::class]);

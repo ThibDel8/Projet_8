@@ -10,7 +10,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 trait FixturesTrait
 {
-    protected function loadFixtures(array $classNames = [], bool $append = false, string $omName = null): ReferenceRepository
+    protected function loadFixtures(array $classNames = [], bool $append = false): ReferenceRepository
     {
         $container = self::getContainer();
         $objectManager = $container->get(EntityManagerInterface::class);

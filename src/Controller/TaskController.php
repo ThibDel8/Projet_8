@@ -26,6 +26,11 @@ class TaskController extends AbstractController
     #[Route(path: '/tasks/create', name: 'task_create')]
     public function create(Request $request, EntityManagerInterface $em): Response
     {
+        if (empty($this->getUser())) {
+
+            $this->addFlash('error', 'Vous devez être connecté pour créer une tâche.');
+            return $this->redirectToRoute('login');
+        }
         $task = new Task();
 
         $form = $this->createForm(TaskType::class, $task);

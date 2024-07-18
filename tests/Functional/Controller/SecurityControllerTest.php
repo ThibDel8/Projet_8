@@ -12,7 +12,7 @@ class SecurityControllerTest extends WebTestCase
 {
     use FixturesTrait;
 
-    public function testLoginPageIsSuccessful()
+    public function testLoginPageIsSuccessful(): void
     {
         $client = static::createClient();
         $client->request('GET', '/login');
@@ -22,7 +22,7 @@ class SecurityControllerTest extends WebTestCase
         $this->assertSelectorExists('form[action="/login_check"]');
     }
 
-    public function testLoginWithInvalidCredentials()
+    public function testLoginWithInvalidCredentials(): void
     {
         $client = static::createClient();
         $crawler = $client->request('GET', '/login');
@@ -40,7 +40,7 @@ class SecurityControllerTest extends WebTestCase
         $this->assertSelectorExists('button', 'Se connecter');
     }
 
-    public function testLoginCheckWithValidCredentials()
+    public function testLoginCheckWithValidCredentials(): void
     {
         $client = static::createClient();
         $this->loadFixtures([AppFixtures::class]);
@@ -58,7 +58,7 @@ class SecurityControllerTest extends WebTestCase
         $this->assertResponseRedirects('/');
     }
 
-    public function testLoginCheckWithUnvalidCredentials()
+    public function testLoginCheckWithUnvalidCredentials(): void
     {
         $client = static::createClient();
         $this->loadFixtures([AppFixtures::class]);
@@ -76,7 +76,7 @@ class SecurityControllerTest extends WebTestCase
         $this->assertResponseRedirects('/login');
     }
 
-    public function testLogout()
+    public function testLogout(): void
     {
         $client = static::createClient();
         $client->request('GET', '/logout');
