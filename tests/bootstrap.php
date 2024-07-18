@@ -2,11 +2,10 @@
 
 use Symfony\Component\Dotenv\Dotenv;
 
-require __DIR__ . '/../vendor/autoload.php';
+require dirname(__DIR__) . '/vendor/autoload.php';
 
-$configFile = __DIR__ . '/../config/bootstrap.php';
-if (is_readable($configFile)) {
-    require $configFile;
+if (file_exists(dirname(__DIR__) . '/config/bootstrap.php')) {
+    require dirname(__DIR__) . '/config/bootstrap.php';
 } elseif (method_exists(Dotenv::class, 'bootEnv')) {
-    (new Dotenv())->bootEnv(__DIR__ . '/../.env');
+    (new Dotenv())->bootEnv(dirname(__DIR__) . '/.env');
 }
