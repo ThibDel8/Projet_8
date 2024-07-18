@@ -1,0 +1,3048 @@
+   1) config\bundles.php
+      ---------- begin diff ----------
+--- C:\wamp64\www\Projet_8\config\bundles.php
++++ C:\wamp64\www\Projet_8\config\bundles.php
+@@ -1,18 +1,18 @@
+-<?php
+-
+-return [
+-    Symfony\Bundle\FrameworkBundle\FrameworkBundle::class => ['all' => true],
+-    Doctrine\Bundle\DoctrineBundle\DoctrineBundle::class => ['all' => true],
+-    Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle::class => ['all' => true],
+-    Symfony\Bundle\DebugBundle\DebugBundle::class => ['dev' => true],
+-    Symfony\Bundle\TwigBundle\TwigBundle::class => ['all' => true],
+-    Symfony\Bundle\WebProfilerBundle\WebProfilerBundle::class => ['dev' => true, 'test' => true],
+-    Symfony\UX\StimulusBundle\StimulusBundle::class => ['all' => true],
+-    Symfony\UX\Turbo\TurboBundle::class => ['all' => true],
+-    Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
+-    Symfony\Bundle\SecurityBundle\SecurityBundle::class => ['all' => true],
+-    Symfony\Bundle\MonologBundle\MonologBundle::class => ['all' => true],
+-    Symfony\Bundle\MakerBundle\MakerBundle::class => ['dev' => true],
+-    Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle::class => ['dev' => true, 'test' => true],
+-    Liip\TestFixturesBundle\LiipTestFixturesBundle::class => ['test' => true],
+-];
++<?php
++
++return [
++    Symfony\Bundle\FrameworkBundle\FrameworkBundle::class => ['all' => true],
++    Doctrine\Bundle\DoctrineBundle\DoctrineBundle::class => ['all' => true],
++    Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle::class => ['all' => true],
++    Symfony\Bundle\DebugBundle\DebugBundle::class => ['dev' => true],
++    Symfony\Bundle\TwigBundle\TwigBundle::class => ['all' => true],
++    Symfony\Bundle\WebProfilerBundle\WebProfilerBundle::class => ['dev' => true, 'test' => true],
++    Symfony\UX\StimulusBundle\StimulusBundle::class => ['all' => true],
++    Symfony\UX\Turbo\TurboBundle::class => ['all' => true],
++    Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
++    Symfony\Bundle\SecurityBundle\SecurityBundle::class => ['all' => true],
++    Symfony\Bundle\MonologBundle\MonologBundle::class => ['all' => true],
++    Symfony\Bundle\MakerBundle\MakerBundle::class => ['dev' => true],
++    Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle::class => ['dev' => true, 'test' => true],
++    Liip\TestFixturesBundle\LiipTestFixturesBundle::class => ['test' => true],
++];
+
+      ----------- end diff -----------
+
+   2) config\preload.php
+      ---------- begin diff ----------
+--- C:\wamp64\www\Projet_8\config\preload.php
++++ C:\wamp64\www\Projet_8\config\preload.php
+@@ -1,5 +1,5 @@
+-<?php
+-
+-if (file_exists(dirname(__DIR__).'/var/cache/prod/App_KernelProdContainer.preload.php')) {
+-    require dirname(__DIR__).'/var/cache/prod/App_KernelProdContainer.preload.php';
+-}
++<?php
++
++if (file_exists(dirname(__DIR__).'/var/cache/prod/App_KernelProdContainer.preload.php')) {
++    require dirname(__DIR__).'/var/cache/prod/App_KernelProdContainer.preload.php';
++}
+
+      ----------- end diff -----------
+
+   3) importmap.php
+      ---------- begin diff ----------
+--- C:\wamp64\www\Projet_8\importmap.php
++++ C:\wamp64\www\Projet_8\importmap.php
+@@ -1,28 +1,28 @@
+-<?php
+-
+-/**
+- * Returns the importmap for this application.
+- *
+- * - "path" is a path inside the asset mapper system. Use the
+- *     "debug:asset-map" command to see the full list of paths.
+- *
+- * - "entrypoint" (JavaScript only) set to true for any module that will
+- *     be used as an "entrypoint" (and passed to the importmap() Twig function).
+- *
+- * The "importmap:require" command can be used to add new entries to this file.
+- */
+-return [
+-    'app' => [
+-        'path' => './assets/app.js',
+-        'entrypoint' => true,
+-    ],
+-    '@hotwired/stimulus' => [
+-        'version' => '3.2.2',
+-    ],
+-    '@symfony/stimulus-bundle' => [
+-        'path' => './vendor/symfony/stimulus-bundle/assets/dist/loader.js',
+-    ],
+-    '@hotwired/turbo' => [
+-        'version' => '7.3.0',
+-    ],
+-];
++<?php
++
++/**
++ * Returns the importmap for this application.
++ *
++ * - "path" is a path inside the asset mapper system. Use the
++ *     "debug:asset-map" command to see the full list of paths.
++ *
++ * - "entrypoint" (JavaScript only) set to true for any module that will
++ *     be used as an "entrypoint" (and passed to the importmap() Twig function).
++ *
++ * The "importmap:require" command can be used to add new entries to this file.
++ */
++return [
++    'app' => [
++        'path' => './assets/app.js',
++        'entrypoint' => true,
++    ],
++    '@hotwired/stimulus' => [
++        'version' => '3.2.2',
++    ],
++    '@symfony/stimulus-bundle' => [
++        'path' => './vendor/symfony/stimulus-bundle/assets/dist/loader.js',
++    ],
++    '@hotwired/turbo' => [
++        'version' => '7.3.0',
++    ],
++];
+
+      ----------- end diff -----------
+
+   4) migrations\Version20240628080725.php
+      ---------- begin diff ----------
+--- C:\wamp64\www\Projet_8\migrations\Version20240628080725.php
++++ C:\wamp64\www\Projet_8\migrations\Version20240628080725.php
+@@ -1,37 +1,37 @@
+-<?php
+-
+-declare(strict_types=1);
+-
+-namespace DoctrineMigrations;
+-
+-use Doctrine\DBAL\Schema\Schema;
+-use Doctrine\Migrations\AbstractMigration;
+-
+-/**
+- * Auto-generated Migration: Please modify to your needs!
+- */
+-final class Version20240628080725 extends AbstractMigration
+-{
+-    public function getDescription(): string
+-    {
+-        return '';
+-    }
+-
+-    public function up(Schema $schema): void
+-    {
+-        // this up() migration is auto-generated, please modify it to your needs
+-        $this->addSql('CREATE TABLE task (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, created_at DATETIME NOT NULL, title VARCHAR(255) NOT NULL, content LONGTEXT NOT NULL, is_done TINYINT(1) NOT NULL, INDEX IDX_527EDB25A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+-        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, username VARCHAR(25) NOT NULL, password VARCHAR(64) NOT NULL, email VARCHAR(60) NOT NULL, roles JSON NOT NULL, UNIQUE INDEX UNIQ_8D93D649F85E0677 (username), UNIQUE INDEX UNIQ_8D93D649E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+-        $this->addSql('CREATE TABLE messenger_messages (id BIGINT AUTO_INCREMENT NOT NULL, body LONGTEXT NOT NULL, headers LONGTEXT NOT NULL, queue_name VARCHAR(190) NOT NULL, created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', available_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', delivered_at DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\', INDEX IDX_75EA56E0FB7336F0 (queue_name), INDEX IDX_75EA56E0E3BD61CE (available_at), INDEX IDX_75EA56E016BA31DB (delivered_at), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+-        $this->addSql('ALTER TABLE task ADD CONSTRAINT FK_527EDB25A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
+-    }
+-
+-    public function down(Schema $schema): void
+-    {
+-        // this down() migration is auto-generated, please modify it to your needs
+-        $this->addSql('ALTER TABLE task DROP FOREIGN KEY FK_527EDB25A76ED395');
+-        $this->addSql('DROP TABLE task');
+-        $this->addSql('DROP TABLE user');
+-        $this->addSql('DROP TABLE messenger_messages');
+-    }
+-}
++<?php
++
++declare(strict_types=1);
++
++namespace DoctrineMigrations;
++
++use Doctrine\DBAL\Schema\Schema;
++use Doctrine\Migrations\AbstractMigration;
++
++/**
++ * Auto-generated Migration: Please modify to your needs!
++ */
++final class Version20240628080725 extends AbstractMigration
++{
++    public function getDescription(): string
++    {
++        return '';
++    }
++
++    public function up(Schema $schema): void
++    {
++        // this up() migration is auto-generated, please modify it to your needs
++        $this->addSql('CREATE TABLE task (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, created_at DATETIME NOT NULL, title VARCHAR(255) NOT NULL, content LONGTEXT NOT NULL, is_done TINYINT(1) NOT NULL, INDEX IDX_527EDB25A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
++        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, username VARCHAR(25) NOT NULL, password VARCHAR(64) NOT NULL, email VARCHAR(60) NOT NULL, roles JSON NOT NULL, UNIQUE INDEX UNIQ_8D93D649F85E0677 (username), UNIQUE INDEX UNIQ_8D93D649E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
++        $this->addSql('CREATE TABLE messenger_messages (id BIGINT AUTO_INCREMENT NOT NULL, body LONGTEXT NOT NULL, headers LONGTEXT NOT NULL, queue_name VARCHAR(190) NOT NULL, created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', available_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', delivered_at DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\', INDEX IDX_75EA56E0FB7336F0 (queue_name), INDEX IDX_75EA56E0E3BD61CE (available_at), INDEX IDX_75EA56E016BA31DB (delivered_at), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
++        $this->addSql('ALTER TABLE task ADD CONSTRAINT FK_527EDB25A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
++    }
++
++    public function down(Schema $schema): void
++    {
++        // this down() migration is auto-generated, please modify it to your needs
++        $this->addSql('ALTER TABLE task DROP FOREIGN KEY FK_527EDB25A76ED395');
++        $this->addSql('DROP TABLE task');
++        $this->addSql('DROP TABLE user');
++        $this->addSql('DROP TABLE messenger_messages');
++    }
++}
+
+      ----------- end diff -----------
+
+   5) public\index.php
+      ---------- begin diff ----------
+--- C:\wamp64\www\Projet_8\public\index.php
++++ C:\wamp64\www\Projet_8\public\index.php
+@@ -1,9 +1,9 @@
+-<?php
+-
+-use App\Kernel;
+-
+-require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
+-
+-return function (array $context) {
+-    return new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
+-};
++<?php
++
++use App\Kernel;
++
++require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
++
++return function (array $context) {
++    return new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
++};
+
+      ----------- end diff -----------
+
+   6) src\Command\AssignUserToTasksCommand.php
+      ---------- begin diff ----------
+--- C:\wamp64\www\Projet_8\src\Command\AssignUserToTasksCommand.php
++++ C:\wamp64\www\Projet_8\src\Command\AssignUserToTasksCommand.php
+@@ -1,66 +1,66 @@
+-<?php
+-
+-namespace App\Command;
+-
+-use App\Entity\User;
+-use App\Repository\TaskRepository;
+-use App\Repository\UserRepository;
+-use Doctrine\ORM\EntityManagerInterface;
+-use Symfony\Component\Console\Attribute\AsCommand;
+-use Symfony\Component\Console\Command\Command;
+-use Symfony\Component\Console\Input\InputInterface;
+-use Symfony\Component\Console\Output\OutputInterface;
+-
+-#[AsCommand(
+-    name: 'app:assign-user-to-tasks',
+-    description: 'Assigns an anonymous user to tasks that are currently unassigned.',
+-)]
+-class AssignUserToTasksCommand extends Command
+-{
+-    private $em;
+-    private $taskRepository;
+-    private $userRepository;
+-
+-    public function __construct(EntityManagerInterface $em, TaskRepository $taskRepository, UserRepository $userRepository)
+-    {
+-        parent::__construct();
+-        $this->em = $em;
+-        $this->taskRepository = $taskRepository;
+-        $this->userRepository = $userRepository;
+-    }
+-
+-    protected function configure(): void
+-    {
+-        $this->setDescription('Assigns an anonymous user to tasks that are currently unassigned.');
+-    }
+-
+-    protected function execute(InputInterface $input, OutputInterface $output): int
+-    {
+-        $tasks = $this->taskRepository->findAll();
+-
+-        $anonymousUser = $this->userRepository->findOneBy(['username' => 'Anonyme']);
+-        if (!$anonymousUser) {
+-            $anonymousUser = new User();
+-            $anonymousUser
+-                ->setUsername('Anonyme')
+-                ->setEmail('anonymous-user@email.com')
+-                ->setPassword(password_hash('password1234', PASSWORD_BCRYPT));
+-
+-            $this->em->persist($anonymousUser);
+-            $this->em->flush();
+-            $output->writeln('Utilisateur anonyme créé.');
+-        }
+-
+-        foreach ($tasks as $task) {
+-            if ($task->getUser() === null) {
+-                $task->setUser($anonymousUser);
+-                $this->em->persist($task);
+-            }
+-        }
+-
+-        $this->em->flush();
+-        $output->writeln('L\'utilisateur anonyme a été attribué aux tâches non assignées avec succès.');
+-
+-        return Command::SUCCESS;
+-    }
+-}
++<?php
++
++namespace App\Command;
++
++use App\Entity\User;
++use App\Repository\TaskRepository;
++use App\Repository\UserRepository;
++use Doctrine\ORM\EntityManagerInterface;
++use Symfony\Component\Console\Attribute\AsCommand;
++use Symfony\Component\Console\Command\Command;
++use Symfony\Component\Console\Input\InputInterface;
++use Symfony\Component\Console\Output\OutputInterface;
++
++#[AsCommand(
++    name: 'app:assign-user-to-tasks',
++    description: 'Assigns an anonymous user to tasks that are currently unassigned.',
++)]
++class AssignUserToTasksCommand extends Command
++{
++    private $em;
++    private $taskRepository;
++    private $userRepository;
++
++    public function __construct(EntityManagerInterface $em, TaskRepository $taskRepository, UserRepository $userRepository)
++    {
++        parent::__construct();
++        $this->em = $em;
++        $this->taskRepository = $taskRepository;
++        $this->userRepository = $userRepository;
++    }
++
++    protected function configure(): void
++    {
++        $this->setDescription('Assigns an anonymous user to tasks that are currently unassigned.');
++    }
++
++    protected function execute(InputInterface $input, OutputInterface $output): int
++    {
++        $tasks = $this->taskRepository->findAll();
++
++        $anonymousUser = $this->userRepository->findOneBy(['username' => 'Anonyme']);
++        if (!$anonymousUser) {
++            $anonymousUser = new User();
++            $anonymousUser
++                ->setUsername('Anonyme')
++                ->setEmail('anonymous-user@email.com')
++                ->setPassword(password_hash('password1234', PASSWORD_BCRYPT));
++
++            $this->em->persist($anonymousUser);
++            $this->em->flush();
++            $output->writeln('Utilisateur anonyme créé.');
++        }
++
++        foreach ($tasks as $task) {
++            if (null === $task->getUser()) {
++                $task->setUser($anonymousUser);
++                $this->em->persist($task);
++            }
++        }
++
++        $this->em->flush();
++        $output->writeln('L\'utilisateur anonyme a été attribué aux tâches non assignées avec succès.');
++
++        return Command::SUCCESS;
++    }
++}
+
+      ----------- end diff -----------
+
+   7) src\Controller\HomeController.php
+      ---------- begin diff ----------
+--- C:\wamp64\www\Projet_8\src\Controller\HomeController.php
++++ C:\wamp64\www\Projet_8\src\Controller\HomeController.php
+@@ -1,16 +1,16 @@
+-<?php
+-
+-namespace App\Controller;
+-
+-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+-use Symfony\Component\HttpFoundation\Response;
+-use Symfony\Component\Routing\Annotation\Route;
+-
+-class HomeController extends AbstractController
+-{
+-    #[Route(path: '/', name: 'homepage')]
+-    public function index(): Response
+-    {
+-        return $this->render('home/index.html.twig');
+-    }
+-}
++<?php
++
++namespace App\Controller;
++
++use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
++use Symfony\Component\HttpFoundation\Response;
++use Symfony\Component\Routing\Annotation\Route;
++
++class HomeController extends AbstractController
++{
++    #[Route(path: '/', name: 'homepage')]
++    public function index(): Response
++    {
++        return $this->render('home/index.html.twig');
++    }
++}
+
+      ----------- end diff -----------
+
+   8) src\Controller\SecurityController.php
+      ---------- begin diff ----------
+--- C:\wamp64\www\Projet_8\src\Controller\SecurityController.php
++++ C:\wamp64\www\Projet_8\src\Controller\SecurityController.php
+@@ -1,23 +1,23 @@
+-<?php
+-
+-namespace App\Controller;
+-
+-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+-use Symfony\Component\HttpFoundation\Response;
+-use Symfony\Component\Routing\Annotation\Route;
+-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+-
+-class SecurityController extends AbstractController
+-{
+-    #[Route(path: '/login', name: 'login')]
+-    public function login(AuthenticationUtils $authenticationUtils): Response
+-    {
+-        $error = $authenticationUtils->getLastAuthenticationError();
+-        $lastUsername = $authenticationUtils->getLastUsername();
+-
+-        return $this->render('security/login.html.twig', [
+-            'last_username' => $lastUsername,
+-            'error' => $error,
+-        ]);
+-    }
+-}
++<?php
++
++namespace App\Controller;
++
++use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
++use Symfony\Component\HttpFoundation\Response;
++use Symfony\Component\Routing\Annotation\Route;
++use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
++
++class SecurityController extends AbstractController
++{
++    #[Route(path: '/login', name: 'login')]
++    public function login(AuthenticationUtils $authenticationUtils): Response
++    {
++        $error = $authenticationUtils->getLastAuthenticationError();
++        $lastUsername = $authenticationUtils->getLastUsername();
++
++        return $this->render('security/login.html.twig', [
++            'last_username' => $lastUsername,
++            'error' => $error,
++        ]);
++    }
++}
+
+      ----------- end diff -----------
+
+   9) src\Controller\TaskController.php
+      ---------- begin diff ----------
+--- C:\wamp64\www\Projet_8\src\Controller\TaskController.php
++++ C:\wamp64\www\Projet_8\src\Controller\TaskController.php
+@@ -1,114 +1,115 @@
+-<?php
+-
+-namespace App\Controller;
+-
+-use App\Entity\Task;
+-use App\Form\TaskType;
+-use App\Repository\TaskRepository;
+-use Doctrine\ORM\EntityManagerInterface;
+-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+-use Symfony\Component\HttpFoundation\Request;
+-use Symfony\Component\HttpFoundation\Response;
+-use Symfony\Component\Routing\Annotation\Route;
+-
+-class TaskController extends AbstractController
+-{
+-    #[Route(path: '/tasks', name: 'task_list')]
+-    public function list(TaskRepository $taskRepository): Response
+-    {
+-        $tasks = $taskRepository->findAll();
+-
+-        return $this->render('task/list.html.twig', [
+-            'tasks' => $tasks,
+-        ]);
+-    }
+-
+-    #[Route(path: '/tasks/create', name: 'task_create')]
+-    public function create(Request $request, EntityManagerInterface $em): Response
+-    {
+-        if (empty($this->getUser())) {
+-
+-            $this->addFlash('error', 'Vous devez être connecté pour créer une tâche.');
+-            return $this->redirectToRoute('login');
+-        }
+-        $task = new Task();
+-
+-        $form = $this->createForm(TaskType::class, $task);
+-
+-        $form->handleRequest($request);
+-
+-        if ($form->isSubmitted() && $form->isValid()) {
+-            $task->setUser($this->getUser());
+-
+-            $em->persist($task);
+-            $em->flush();
+-
+-            $this->addFlash('success', 'La tâche a bien été ajoutée.');
+-
+-            return $this->redirectToRoute('task_list');
+-        }
+-
+-        return $this->render('task/create.html.twig', [
+-            'form' => $form->createView(),
+-        ]);
+-    }
+-
+-    #[Route(path: '/tasks/{id}/edit', name: 'task_edit')]
+-    public function edit(Task $task, Request $request, EntityManagerInterface $em): Response
+-    {
+-        $currentUser = $this->getUser();
+-        $author = $task->getUser();
+-
+-        if ($author !== $currentUser) {
+-            $this->denyAccessUnlessGranted('ROLE_ADMIN');
+-        }
+-
+-        $form = $this->createForm(TaskType::class, $task);
+-
+-        $form->handleRequest($request);
+-
+-        if ($form->isSubmitted() && $form->isValid()) {
+-            $em->flush();
+-
+-            $this->addFlash('success', 'La tâche a bien été modifiée.');
+-
+-            return $this->redirectToRoute('task_list');
+-        }
+-
+-        return $this->render('task/edit.html.twig', [
+-            'form' => $form->createView(),
+-            'task' => $task,
+-        ]);
+-    }
+-
+-    #[Route(path: '/tasks/{id}/toggle', name: 'task_toggle')]
+-    public function toggleTask(Task $task, EntityManagerInterface $em): Response
+-    {
+-        $task->toggle(!$task->isDone());
+-        $em->flush();
+-
+-        $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
+-
+-        return $this->redirectToRoute('task_list');
+-    }
+-
+-    #[Route(path: '/tasks/{id}/delete', name: 'task_delete')]
+-    public function deleteTask(Task $task, EntityManagerInterface $em): Response
+-    {
+-        $user = $this->getUser();
+-        $isAnonymeAuthor = $task->getUser()->getUsername() === 'Anonyme';
+-        $isAdmin = $this->isGranted('ROLE_ADMIN');
+-
+-        if ((false === $isAnonymeAuthor && $user === $task->getUser()) || true === $isAdmin) {
+-            $em->remove($task);
+-            $em->flush();
+-
+-            $this->addFlash('success', 'La tâche a bien été supprimée !');
+-        } else {
+-            $this->addFlash('error', 'Vous ne pouvez pas supprimer cette tâche !');
+-            return new Response('Forbidden', Response::HTTP_FORBIDDEN);
+-        }
+-
+-        return $this->redirectToRoute('task_list');
+-    }
+-}
++<?php
++
++namespace App\Controller;
++
++use App\Entity\Task;
++use App\Form\TaskType;
++use App\Repository\TaskRepository;
++use Doctrine\ORM\EntityManagerInterface;
++use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
++use Symfony\Component\HttpFoundation\Request;
++use Symfony\Component\HttpFoundation\Response;
++use Symfony\Component\Routing\Annotation\Route;
++
++class TaskController extends AbstractController
++{
++    #[Route(path: '/tasks', name: 'task_list')]
++    public function list(TaskRepository $taskRepository): Response
++    {
++        $tasks = $taskRepository->findAll();
++
++        return $this->render('task/list.html.twig', [
++            'tasks' => $tasks,
++        ]);
++    }
++
++    #[Route(path: '/tasks/create', name: 'task_create')]
++    public function create(Request $request, EntityManagerInterface $em): Response
++    {
++        if (empty($this->getUser())) {
++            $this->addFlash('error', 'Vous devez être connecté pour créer une tâche.');
++
++            return $this->redirectToRoute('login');
++        }
++        $task = new Task();
++
++        $form = $this->createForm(TaskType::class, $task);
++
++        $form->handleRequest($request);
++
++        if ($form->isSubmitted() && $form->isValid()) {
++            $task->setUser($this->getUser());
++
++            $em->persist($task);
++            $em->flush();
++
++            $this->addFlash('success', 'La tâche a bien été ajoutée.');
++
++            return $this->redirectToRoute('task_list');
++        }
++
++        return $this->render('task/create.html.twig', [
++            'form' => $form->createView(),
++        ]);
++    }
++
++    #[Route(path: '/tasks/{id}/edit', name: 'task_edit')]
++    public function edit(Task $task, Request $request, EntityManagerInterface $em): Response
++    {
++        $currentUser = $this->getUser();
++        $author = $task->getUser();
++
++        if ($author !== $currentUser) {
++            $this->denyAccessUnlessGranted('ROLE_ADMIN');
++        }
++
++        $form = $this->createForm(TaskType::class, $task);
++
++        $form->handleRequest($request);
++
++        if ($form->isSubmitted() && $form->isValid()) {
++            $em->flush();
++
++            $this->addFlash('success', 'La tâche a bien été modifiée.');
++
++            return $this->redirectToRoute('task_list');
++        }
++
++        return $this->render('task/edit.html.twig', [
++            'form' => $form->createView(),
++            'task' => $task,
++        ]);
++    }
++
++    #[Route(path: '/tasks/{id}/toggle', name: 'task_toggle')]
++    public function toggleTask(Task $task, EntityManagerInterface $em): Response
++    {
++        $task->toggle(!$task->isDone());
++        $em->flush();
++
++        $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
++
++        return $this->redirectToRoute('task_list');
++    }
++
++    #[Route(path: '/tasks/{id}/delete', name: 'task_delete')]
++    public function deleteTask(Task $task, EntityManagerInterface $em): Response
++    {
++        $user = $this->getUser();
++        $isAnonymeAuthor = 'Anonyme' === $task->getUser()->getUsername();
++        $isAdmin = $this->isGranted('ROLE_ADMIN');
++
++        if ((false === $isAnonymeAuthor && $user === $task->getUser()) || true === $isAdmin) {
++            $em->remove($task);
++            $em->flush();
++
++            $this->addFlash('success', 'La tâche a bien été supprimée !');
++        } else {
++            $this->addFlash('error', 'Vous ne pouvez pas supprimer cette tâche !');
++
++            return new Response('Forbidden', Response::HTTP_FORBIDDEN);
++        }
++
++        return $this->redirectToRoute('task_list');
++    }
++}
+
+      ----------- end diff -----------
+
+  10) src\Controller\UserController.php
+      ---------- begin diff ----------
+--- C:\wamp64\www\Projet_8\src\Controller\UserController.php
++++ C:\wamp64\www\Projet_8\src\Controller\UserController.php
+@@ -1,81 +1,81 @@
+-<?php
+-
+-namespace App\Controller;
+-
+-use App\Entity\User;
+-use App\Form\UserType;
+-use App\Repository\UserRepository;
+-use Doctrine\ORM\EntityManagerInterface;
+-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+-use Symfony\Component\HttpFoundation\Request;
+-use Symfony\Component\HttpFoundation\Response;
+-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+-use Symfony\Component\Routing\Annotation\Route;
+-use Symfony\Component\Security\Http\Attribute\IsGranted;
+-
+-class UserController extends AbstractController
+-{
+-    #[Route(path: '/users', name: 'user_list')]
+-    #[IsGranted('ROLE_ADMIN')]
+-    public function list(UserRepository $repository): Response
+-    {
+-        $users = $repository->findAll();
+-
+-        return $this->render('user/list.html.twig', [
+-            'users' => $users,
+-        ]);
+-    }
+-
+-    #[Route(path: '/users/create', name: 'user_create')]
+-    #[IsGranted('ROLE_ADMIN')]
+-    public function create(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher): Response
+-    {
+-        $user = new User();
+-        $form = $this->createForm(UserType::class, $user);
+-
+-        $form->handleRequest($request);
+-
+-        if ($form->isSubmitted() && $form->isValid()) {
+-            $hashedPassword = $passwordHasher->hashPassword($user, $user->getPassword());
+-            $user->setPassword($hashedPassword);
+-            $user->setRoles($form->get('roles')->getData());
+-
+-            $em->persist($user);
+-            $em->flush();
+-
+-            $this->addFlash('success', "L'utilisateur a bien été ajouté !");
+-
+-            return $this->redirectToRoute('user_list');
+-        }
+-
+-        return $this->render('user/create.html.twig', [
+-            'form' => $form->createView(),
+-        ]);
+-    }
+-
+-    #[Route(path: '/users/{id}/edit', name: 'user_edit')]
+-    #[IsGranted('ROLE_ADMIN')]
+-    public function edit(User $user, Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher): Response
+-    {
+-        $form = $this->createForm(UserType::class, $user);
+-
+-        $form->handleRequest($request);
+-
+-        if ($form->isSubmitted() && $form->isValid()) {
+-            $hashedPassword = $passwordHasher->hashPassword($user, $user->getPassword());
+-            $user->setPassword($hashedPassword);
+-            $user->setRoles($form->get('roles')->getData());
+-
+-            $em->flush();
+-
+-            $this->addFlash('success', "L'utilisateur a bien été modifié !");
+-
+-            return $this->redirectToRoute('user_list');
+-        }
+-
+-        return $this->render('user/edit.html.twig', [
+-            'form' => $form->createView(),
+-            'user' => $user,
+-        ]);
+-    }
+-}
++<?php
++
++namespace App\Controller;
++
++use App\Entity\User;
++use App\Form\UserType;
++use App\Repository\UserRepository;
++use Doctrine\ORM\EntityManagerInterface;
++use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
++use Symfony\Component\HttpFoundation\Request;
++use Symfony\Component\HttpFoundation\Response;
++use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
++use Symfony\Component\Routing\Annotation\Route;
++use Symfony\Component\Security\Http\Attribute\IsGranted;
++
++class UserController extends AbstractController
++{
++    #[Route(path: '/users', name: 'user_list')]
++    #[IsGranted('ROLE_ADMIN')]
++    public function list(UserRepository $repository): Response
++    {
++        $users = $repository->findAll();
++
++        return $this->render('user/list.html.twig', [
++            'users' => $users,
++        ]);
++    }
++
++    #[Route(path: '/users/create', name: 'user_create')]
++    #[IsGranted('ROLE_ADMIN')]
++    public function create(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher): Response
++    {
++        $user = new User();
++        $form = $this->createForm(UserType::class, $user);
++
++        $form->handleRequest($request);
++
++        if ($form->isSubmitted() && $form->isValid()) {
++            $hashedPassword = $passwordHasher->hashPassword($user, $user->getPassword());
++            $user->setPassword($hashedPassword);
++            $user->setRoles($form->get('roles')->getData());
++
++            $em->persist($user);
++            $em->flush();
++
++            $this->addFlash('success', "L'utilisateur a bien été ajouté !");
++
++            return $this->redirectToRoute('user_list');
++        }
++
++        return $this->render('user/create.html.twig', [
++            'form' => $form->createView(),
++        ]);
++    }
++
++    #[Route(path: '/users/{id}/edit', name: 'user_edit')]
++    #[IsGranted('ROLE_ADMIN')]
++    public function edit(User $user, Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher): Response
++    {
++        $form = $this->createForm(UserType::class, $user);
++
++        $form->handleRequest($request);
++
++        if ($form->isSubmitted() && $form->isValid()) {
++            $hashedPassword = $passwordHasher->hashPassword($user, $user->getPassword());
++            $user->setPassword($hashedPassword);
++            $user->setRoles($form->get('roles')->getData());
++
++            $em->flush();
++
++            $this->addFlash('success', "L'utilisateur a bien été modifié !");
++
++            return $this->redirectToRoute('user_list');
++        }
++
++        return $this->render('user/edit.html.twig', [
++            'form' => $form->createView(),
++            'user' => $user,
++        ]);
++    }
++}
+
+      ----------- end diff -----------
+
+  11) src\DataFixtures\AppFixtures.php
+      ---------- begin diff ----------
+--- C:\wamp64\www\Projet_8\src\DataFixtures\AppFixtures.php
++++ C:\wamp64\www\Projet_8\src\DataFixtures\AppFixtures.php
+@@ -1,48 +1,48 @@
+-<?php
+-
+-namespace App\DataFixtures;
+-
+-use App\Entity\Task;
+-use App\Entity\User;
+-use Doctrine\Bundle\FixturesBundle\Fixture;
+-use Doctrine\Persistence\ObjectManager;
+-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+-
+-class AppFixtures extends Fixture
+-{
+-    public function __construct(private UserPasswordHasherInterface $passwordHasherInterface)
+-    {
+-    }
+-
+-    public function load(ObjectManager $manager): void
+-    {
+-        $author = new User();
+-        $author->setUsername('Auteur')
+-            ->setEmail('auteur@email.com')
+-            ->setPassword($this->passwordHasherInterface->hashPassword($author, 'password1234'))
+-            ->setRoles(['ROLE_USER']);
+-
+-        $anonymeUser = new User();
+-        $anonymeUser->setUsername('Anonyme')
+-            ->setEmail('anonyme@email.com')
+-            ->setPassword($this->passwordHasherInterface->hashPassword($anonymeUser, 'password1234'))
+-            ->setRoles(['ROLE_USER']);
+-
+-        $adminUser = new User();
+-        $adminUser->setUsername('AdminUser')
+-            ->setEmail('admin-user@email.com')
+-            ->setPassword($this->passwordHasherInterface->hashPassword($adminUser, 'password1234'))
+-            ->setRoles(['ROLE_ADMIN']);
+-
+-        $task = new Task();
+-        $task->setTitle('Title')
+-            ->setContent('This is a content.')
+-            ->setUser($author);
+-
+-        $manager->persist($author);
+-        $manager->persist($adminUser);
+-        $manager->persist($anonymeUser);
+-        $manager->persist($task);
+-        $manager->flush();
+-    }
+-}
++<?php
++
++namespace App\DataFixtures;
++
++use App\Entity\Task;
++use App\Entity\User;
++use Doctrine\Bundle\FixturesBundle\Fixture;
++use Doctrine\Persistence\ObjectManager;
++use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
++
++class AppFixtures extends Fixture
++{
++    public function __construct(private UserPasswordHasherInterface $passwordHasherInterface)
++    {
++    }
++
++    public function load(ObjectManager $manager): void
++    {
++        $author = new User();
++        $author->setUsername('Auteur')
++            ->setEmail('auteur@email.com')
++            ->setPassword($this->passwordHasherInterface->hashPassword($author, 'password1234'))
++            ->setRoles(['ROLE_USER']);
++
++        $anonymeUser = new User();
++        $anonymeUser->setUsername('Anonyme')
++            ->setEmail('anonyme@email.com')
++            ->setPassword($this->passwordHasherInterface->hashPassword($anonymeUser, 'password1234'))
++            ->setRoles(['ROLE_USER']);
++
++        $adminUser = new User();
++        $adminUser->setUsername('AdminUser')
++            ->setEmail('admin-user@email.com')
++            ->setPassword($this->passwordHasherInterface->hashPassword($adminUser, 'password1234'))
++            ->setRoles(['ROLE_ADMIN']);
++
++        $task = new Task();
++        $task->setTitle('Title')
++            ->setContent('This is a content.')
++            ->setUser($author);
++
++        $manager->persist($author);
++        $manager->persist($adminUser);
++        $manager->persist($anonymeUser);
++        $manager->persist($task);
++        $manager->flush();
++    }
++}
+
+      ----------- end diff -----------
+
+  12) src\Entity\Task.php
+      ---------- begin diff ----------
+--- C:\wamp64\www\Projet_8\src\Entity\Task.php
++++ C:\wamp64\www\Projet_8\src\Entity\Task.php
+@@ -1,90 +1,94 @@
+-<?php
+-
+-namespace App\Entity;
+-
+-use App\Repository\TaskRepository;
+-use Doctrine\DBAL\Types\Types;
+-use Doctrine\ORM\Mapping as ORM;
+-use Symfony\Component\Validator\Constraints as Assert;
+-
+-#[ORM\Entity(repositoryClass: TaskRepository::class)]
+-class Task
+-{
+-    #[ORM\Id]
+-    #[ORM\GeneratedValue]
+-    #[ORM\Column(type: Types::INTEGER)]
+-    private ?int $id = null;
+-
+-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+-    private ?\DateTimeInterface $createdAt;
+-
+-    #[ORM\Column(type : Types::STRING, length: 255)]
+-    #[Assert\NotBlank(message: "Vous devez saisir un titre.")]
+-    private ?string $title = null;
+-
+-    #[ORM\Column(type: Types::TEXT)]
+-    #[Assert\NotBlank(message: "Vous devez saisir du contenu.")]
+-    private ?string $content = null;
+-
+-    #[ORM\Column(type: Types::BOOLEAN)]
+-    private bool $isDone = false;
+-
+-    #[ORM\ManyToOne(targetEntity: User::class)]
+-    #[ORM\JoinColumn(nullable: false)]
+-    private ?User $user = null;
+-
+-    public function __construct()
+-    {
+-        $this->createdAt = new \DateTime();
+-        $this->isDone = false;
+-    }
+-
+-    public function getId(): ?int
+-    {
+-        return $this->id;
+-    }
+-
+-    public function getTitle(): ?string
+-    {
+-        return $this->title;
+-    }
+-
+-    public function setTitle(string $title): self
+-    {
+-        $this->title = $title;
+-        return $this;
+-    }
+-
+-    public function getContent(): ?string
+-    {
+-        return $this->content;
+-    }
+-
+-    public function setContent(string $content): self
+-    {
+-        $this->content = $content;
+-        return $this;
+-    }
+-
+-    public function isDone(): bool
+-    {
+-        return $this->isDone;
+-    }
+-
+-    public function toggle(bool $flag): self
+-    {
+-        $this->isDone = $flag;
+-        return $this;
+-    }
+-
+-    public function getUser(): ?User
+-    {
+-        return $this->user;
+-    }
+-
+-    public function setUser(?User $user): self
+-    {
+-        $this->user = $user;
+-        return $this;
+-    }
+-}
++<?php
++
++namespace App\Entity;
++
++use App\Repository\TaskRepository;
++use Doctrine\DBAL\Types\Types;
++use Doctrine\ORM\Mapping as ORM;
++use Symfony\Component\Validator\Constraints as Assert;
++
++#[ORM\Entity(repositoryClass: TaskRepository::class)]
++class Task
++{
++    #[ORM\Id]
++    #[ORM\GeneratedValue]
++    #[ORM\Column(type: Types::INTEGER)]
++    private ?int $id = null;
++
++    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
++    private ?\DateTimeInterface $createdAt;
++
++    #[ORM\Column(type : Types::STRING, length: 255)]
++    #[Assert\NotBlank(message: 'Vous devez saisir un titre.')]
++    private ?string $title = null;
++
++    #[ORM\Column(type: Types::TEXT)]
++    #[Assert\NotBlank(message: 'Vous devez saisir du contenu.')]
++    private ?string $content = null;
++
++    #[ORM\Column(type: Types::BOOLEAN)]
++    private bool $isDone = false;
++
++    #[ORM\ManyToOne(targetEntity: User::class)]
++    #[ORM\JoinColumn(nullable: false)]
++    private ?User $user = null;
++
++    public function __construct()
++    {
++        $this->createdAt = new \DateTime();
++        $this->isDone = false;
++    }
++
++    public function getId(): ?int
++    {
++        return $this->id;
++    }
++
++    public function getTitle(): ?string
++    {
++        return $this->title;
++    }
++
++    public function setTitle(string $title): self
++    {
++        $this->title = $title;
++
++        return $this;
++    }
++
++    public function getContent(): ?string
++    {
++        return $this->content;
++    }
++
++    public function setContent(string $content): self
++    {
++        $this->content = $content;
++
++        return $this;
++    }
++
++    public function isDone(): bool
++    {
++        return $this->isDone;
++    }
++
++    public function toggle(bool $flag): self
++    {
++        $this->isDone = $flag;
++
++        return $this;
++    }
++
++    public function getUser(): ?User
++    {
++        return $this->user;
++    }
++
++    public function setUser(?User $user): self
++    {
++        $this->user = $user;
++
++        return $this;
++    }
++}
+
+      ----------- end diff -----------
+
+  13) src\Entity\User.php
+      ---------- begin diff ----------
+--- C:\wamp64\www\Projet_8\src\Entity\User.php
++++ C:\wamp64\www\Projet_8\src\Entity\User.php
+@@ -1,111 +1,113 @@
+-<?php
+-
+-namespace App\Entity;
+-
+-use App\Repository\UserRepository;
+-use Doctrine\ORM\Mapping as ORM;
+-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+-use Symfony\Component\Security\Core\User\UserInterface;
+-use Symfony\Component\Validator\Constraints as Assert;
+-
+-#[ORM\Entity(repositoryClass: UserRepository::class)]
+-class User implements UserInterface, PasswordAuthenticatedUserInterface
+-{
+-    #[ORM\Id]
+-    #[ORM\GeneratedValue]
+-    #[ORM\Column(type: 'integer')]
+-    private ?int $id = null;
+-
+-    #[ORM\Column(length: 25, unique: true)]
+-    #[Assert\NotBlank(message: "Vous devez saisir un nom d'utilisateur.")]
+-    private ?string $username = null;
+-
+-    #[ORM\Column(length: 64)]
+-    private ?string $password = null;
+-
+-    #[ORM\Column(length: 60, unique: true)]
+-    #[Assert\NotBlank(message: "Vous devez saisir une adresse email.")]
+-    #[Assert\Email(message: "Le format de l'adresse n'est pas correct.")]
+-    private ?string $email = null;
+-
+-    #[ORM\Column(type: 'json')]
+-    private array $roles = [];
+-
+-    public function getId(): ?int
+-    {
+-        return $this->id;
+-    }
+-
+-    public function getUsername(): ?string
+-    {
+-        return $this->username;
+-    }
+-
+-    public function setUsername(?string $username): static
+-    {
+-        $this->username = $username;
+-        return $this;
+-    }
+-
+-    public function getEmail(): ?string
+-    {
+-        return $this->email;
+-    }
+-
+-    public function setEmail(?string $email): static
+-    {
+-        $this->email = $email;
+-        return $this;
+-    }
+-
+-    /**
+-     * The public representation of the user (e.g. a username, an email address, etc.)
+-     *
+-     * @see UserInterface
+-     */
+-    public function getUserIdentifier(): string
+-    {
+-        return (string) $this->email;
+-    }
+-
+-    /**
+-     * @see UserInterface
+-     */
+-    public function getRoles(): array
+-    {
+-        $roles = $this->roles;
+-        // guarantee every user at least has ROLE_USER
+-        $roles[] = 'ROLE_USER';
+-
+-        return array_unique($roles);
+-    }
+-
+-    public function setRoles(array $roles): self
+-    {
+-        $this->roles = $roles;
+-
+-        return $this;
+-    }
+-
+-    /**
+-     * @see PasswordAuthenticatedUserInterface
+-     */
+-    public function getPassword(): string
+-    {
+-        return $this->password;
+-    }
+-
+-    public function setPassword(string $password): self
+-    {
+-        $this->password = $password;
+-
+-        return $this;
+-    }
+-
+-    /**
+-     * @see UserInterface
+-     */
+-    public function eraseCredentials(): void
+-    {
+-    }
+-}
++<?php
++
++namespace App\Entity;
++
++use App\Repository\UserRepository;
++use Doctrine\ORM\Mapping as ORM;
++use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
++use Symfony\Component\Security\Core\User\UserInterface;
++use Symfony\Component\Validator\Constraints as Assert;
++
++#[ORM\Entity(repositoryClass: UserRepository::class)]
++class User implements UserInterface, PasswordAuthenticatedUserInterface
++{
++    #[ORM\Id]
++    #[ORM\GeneratedValue]
++    #[ORM\Column(type: 'integer')]
++    private ?int $id = null;
++
++    #[ORM\Column(length: 25, unique: true)]
++    #[Assert\NotBlank(message: "Vous devez saisir un nom d'utilisateur.")]
++    private ?string $username = null;
++
++    #[ORM\Column(length: 64)]
++    private ?string $password = null;
++
++    #[ORM\Column(length: 60, unique: true)]
++    #[Assert\NotBlank(message: 'Vous devez saisir une adresse email.')]
++    #[Assert\Email(message: "Le format de l'adresse n'est pas correct.")]
++    private ?string $email = null;
++
++    #[ORM\Column(type: 'json')]
++    private array $roles = [];
++
++    public function getId(): ?int
++    {
++        return $this->id;
++    }
++
++    public function getUsername(): ?string
++    {
++        return $this->username;
++    }
++
++    public function setUsername(?string $username): static
++    {
++        $this->username = $username;
++
++        return $this;
++    }
++
++    public function getEmail(): ?string
++    {
++        return $this->email;
++    }
++
++    public function setEmail(?string $email): static
++    {
++        $this->email = $email;
++
++        return $this;
++    }
++
++    /**
++     * The public representation of the user (e.g. a username, an email address, etc.).
++     *
++     * @see UserInterface
++     */
++    public function getUserIdentifier(): string
++    {
++        return (string) $this->email;
++    }
++
++    /**
++     * @see UserInterface
++     */
++    public function getRoles(): array
++    {
++        $roles = $this->roles;
++        // guarantee every user at least has ROLE_USER
++        $roles[] = 'ROLE_USER';
++
++        return array_unique($roles);
++    }
++
++    public function setRoles(array $roles): self
++    {
++        $this->roles = $roles;
++
++        return $this;
++    }
++
++    /**
++     * @see PasswordAuthenticatedUserInterface
++     */
++    public function getPassword(): string
++    {
++        return $this->password;
++    }
++
++    public function setPassword(string $password): self
++    {
++        $this->password = $password;
++
++        return $this;
++    }
++
++    /**
++     * @see UserInterface
++     */
++    public function eraseCredentials(): void
++    {
++    }
++}
+
+      ----------- end diff -----------
+
+  14) src\Form\TaskType.php
+      ---------- begin diff ----------
+--- C:\wamp64\www\Projet_8\src\Form\TaskType.php
++++ C:\wamp64\www\Projet_8\src\Form\TaskType.php
+@@ -1,37 +1,37 @@
+-<?php
+-
+-namespace App\Form;
+-
+-use App\Entity\Task;
+-use Symfony\Component\Form\AbstractType;
+-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+-use Symfony\Component\Form\Extension\Core\Type\TextType;
+-use Symfony\Component\Form\FormBuilderInterface;
+-use Symfony\Component\OptionsResolver\OptionsResolver;
+-
+-class TaskType extends AbstractType
+-{
+-    public function buildForm(FormBuilderInterface $builder, array $options): void
+-    {
+-        $builder
+-            ->add('title', TextType::class, [
+-                'label' => 'Title',
+-                'attr' => [
+-                    'placeholder' => 'Enter the title',
+-                ],
+-            ])
+-            ->add('content', TextareaType::class, [
+-                'label' => 'Content',
+-                'attr' => [
+-                    'placeholder' => 'Enter the content',
+-                ],
+-            ]);
+-    }
+-
+-    public function configureOptions(OptionsResolver $resolver): void
+-    {
+-        $resolver->setDefaults([
+-            'data_class' => Task::class,
+-        ]);
+-    }
+-}
++<?php
++
++namespace App\Form;
++
++use App\Entity\Task;
++use Symfony\Component\Form\AbstractType;
++use Symfony\Component\Form\Extension\Core\Type\TextareaType;
++use Symfony\Component\Form\Extension\Core\Type\TextType;
++use Symfony\Component\Form\FormBuilderInterface;
++use Symfony\Component\OptionsResolver\OptionsResolver;
++
++class TaskType extends AbstractType
++{
++    public function buildForm(FormBuilderInterface $builder, array $options): void
++    {
++        $builder
++            ->add('title', TextType::class, [
++                'label' => 'Title',
++                'attr' => [
++                    'placeholder' => 'Enter the title',
++                ],
++            ])
++            ->add('content', TextareaType::class, [
++                'label' => 'Content',
++                'attr' => [
++                    'placeholder' => 'Enter the content',
++                ],
++            ]);
++    }
++
++    public function configureOptions(OptionsResolver $resolver): void
++    {
++        $resolver->setDefaults([
++            'data_class' => Task::class,
++        ]);
++    }
++}
+
+      ----------- end diff -----------
+
+  15) src\Form\UserType.php
+      ---------- begin diff ----------
+--- C:\wamp64\www\Projet_8\src\Form\UserType.php
++++ C:\wamp64\www\Projet_8\src\Form\UserType.php
+@@ -1,66 +1,66 @@
+-<?php
+-
+-namespace App\Form;
+-
+-use App\Entity\User;
+-use Symfony\Component\Form\AbstractType;
+-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+-use Symfony\Component\Form\Extension\Core\Type\EmailType;
+-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+-use Symfony\Component\Form\Extension\Core\Type\TextType;
+-use Symfony\Component\Form\FormBuilderInterface;
+-use Symfony\Component\OptionsResolver\OptionsResolver;
+-
+-class UserType extends AbstractType
+-{
+-    public function buildForm(FormBuilderInterface $builder, array $options): void
+-    {
+-        $builder
+-            ->add('username', TextType::class, [
+-                'label' => "Nom d'utilisateur",
+-                'attr' => [
+-                    'placeholder' => 'Entrez le nom d\'utilisateur',
+-                ],
+-            ])
+-            ->add('password', RepeatedType::class, [
+-                'type' => PasswordType::class,
+-                'invalid_message' => 'Les deux mots de passe doivent correspondre.',
+-                'required' => true,
+-                'first_options' => [
+-                    'label' => 'Mot de passe',
+-                    'attr' => [
+-                        'placeholder' => 'Entrez le mot de passe',
+-                    ],
+-                ],
+-                'second_options' => [
+-                    'label' => 'Tapez le mot de passe à nouveau',
+-                    'attr' => [
+-                        'placeholder' => 'Confirmez le mot de passe',
+-                    ],
+-                ],
+-            ])
+-            ->add('email', EmailType::class, [
+-                'label' => 'Adresse email',
+-                'attr' => [
+-                    'placeholder' => 'Entrez l\'adresse email',
+-                ],
+-            ])
+-            ->add('roles', ChoiceType::class, [
+-                'choices' => [
+-                    'Utilisateur' => 'ROLE_USER',
+-                    'Administrateur' => 'ROLE_ADMIN',
+-                ],
+-                'multiple' => true,
+-                'expanded' => true,
+-                'label' => 'Rôles',
+-            ]);
+-    }
+-
+-    public function configureOptions(OptionsResolver $resolver): void
+-    {
+-        $resolver->setDefaults([
+-            'data_class' => User::class,
+-        ]);
+-    }
+-}
++<?php
++
++namespace App\Form;
++
++use App\Entity\User;
++use Symfony\Component\Form\AbstractType;
++use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
++use Symfony\Component\Form\Extension\Core\Type\EmailType;
++use Symfony\Component\Form\Extension\Core\Type\PasswordType;
++use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
++use Symfony\Component\Form\Extension\Core\Type\TextType;
++use Symfony\Component\Form\FormBuilderInterface;
++use Symfony\Component\OptionsResolver\OptionsResolver;
++
++class UserType extends AbstractType
++{
++    public function buildForm(FormBuilderInterface $builder, array $options): void
++    {
++        $builder
++            ->add('username', TextType::class, [
++                'label' => "Nom d'utilisateur",
++                'attr' => [
++                    'placeholder' => 'Entrez le nom d\'utilisateur',
++                ],
++            ])
++            ->add('password', RepeatedType::class, [
++                'type' => PasswordType::class,
++                'invalid_message' => 'Les deux mots de passe doivent correspondre.',
++                'required' => true,
++                'first_options' => [
++                    'label' => 'Mot de passe',
++                    'attr' => [
++                        'placeholder' => 'Entrez le mot de passe',
++                    ],
++                ],
++                'second_options' => [
++                    'label' => 'Tapez le mot de passe à nouveau',
++                    'attr' => [
++                        'placeholder' => 'Confirmez le mot de passe',
++                    ],
++                ],
++            ])
++            ->add('email', EmailType::class, [
++                'label' => 'Adresse email',
++                'attr' => [
++                    'placeholder' => 'Entrez l\'adresse email',
++                ],
++            ])
++            ->add('roles', ChoiceType::class, [
++                'choices' => [
++                    'Utilisateur' => 'ROLE_USER',
++                    'Administrateur' => 'ROLE_ADMIN',
++                ],
++                'multiple' => true,
++                'expanded' => true,
++                'label' => 'Rôles',
++            ]);
++    }
++
++    public function configureOptions(OptionsResolver $resolver): void
++    {
++        $resolver->setDefaults([
++            'data_class' => User::class,
++        ]);
++    }
++}
+
+      ----------- end diff -----------
+
+  16) src\Kernel.php
+      ---------- begin diff ----------
+--- C:\wamp64\www\Projet_8\src\Kernel.php
++++ C:\wamp64\www\Projet_8\src\Kernel.php
+@@ -1,11 +1,11 @@
+-<?php
+-
+-namespace App;
+-
+-use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
+-use Symfony\Component\HttpKernel\Kernel as BaseKernel;
+-
+-class Kernel extends BaseKernel
+-{
+-    use MicroKernelTrait;
+-}
++<?php
++
++namespace App;
++
++use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
++use Symfony\Component\HttpKernel\Kernel as BaseKernel;
++
++class Kernel extends BaseKernel
++{
++    use MicroKernelTrait;
++}
+
+      ----------- end diff -----------
+
+  17) src\Repository\TaskRepository.php
+      ---------- begin diff ----------
+--- C:\wamp64\www\Projet_8\src\Repository\TaskRepository.php
++++ C:\wamp64\www\Projet_8\src\Repository\TaskRepository.php
+@@ -1,21 +1,21 @@
+-<?php
+-
+-namespace App\Repository;
+-
+-use App\Entity\Task;
+-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+-use Doctrine\Persistence\ManagerRegistry;
+-
+-/**
+- * @method Task|null find($id, $lockMode = null, $lockVersion = null)
+- * @method Task|null findOneBy(array $criteria, array $orderBy = null)
+- * @method Task[]    findAll()
+- * @method Task[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+- */
+-class TaskRepository extends ServiceEntityRepository
+-{
+-    public function __construct(ManagerRegistry $registry)
+-    {
+-        parent::__construct($registry, Task::class);
+-    }
+-}
++<?php
++
++namespace App\Repository;
++
++use App\Entity\Task;
++use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
++use Doctrine\Persistence\ManagerRegistry;
++
++/**
++ * @method Task|null find($id, $lockMode = null, $lockVersion = null)
++ * @method Task|null findOneBy(array $criteria, array $orderBy = null)
++ * @method Task[]    findAll()
++ * @method Task[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
++ */
++class TaskRepository extends ServiceEntityRepository
++{
++    public function __construct(ManagerRegistry $registry)
++    {
++        parent::__construct($registry, Task::class);
++    }
++}
+
+      ----------- end diff -----------
+
+  18) src\Repository\UserRepository.php
+      ---------- begin diff ----------
+--- C:\wamp64\www\Projet_8\src\Repository\UserRepository.php
++++ C:\wamp64\www\Projet_8\src\Repository\UserRepository.php
+@@ -1,21 +1,21 @@
+-<?php
+-
+-namespace App\Repository;
+-
+-use App\Entity\User;
+-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+-use Doctrine\Persistence\ManagerRegistry;
+-
+-/**
+- * @method User|null find($id, $lockMode = null, $lockVersion = null)
+- * @method User|null findOneBy(array $criteria, array $orderBy = null)
+- * @method User[]    findAll()
+- * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+- */
+-class UserRepository extends ServiceEntityRepository
+-{
+-    public function __construct(ManagerRegistry $registry)
+-    {
+-        parent::__construct($registry, User::class);
+-    }
+-}
++<?php
++
++namespace App\Repository;
++
++use App\Entity\User;
++use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
++use Doctrine\Persistence\ManagerRegistry;
++
++/**
++ * @method User|null find($id, $lockMode = null, $lockVersion = null)
++ * @method User|null findOneBy(array $criteria, array $orderBy = null)
++ * @method User[]    findAll()
++ * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
++ */
++class UserRepository extends ServiceEntityRepository
++{
++    public function __construct(ManagerRegistry $registry)
++    {
++        parent::__construct($registry, User::class);
++    }
++}
+
+      ----------- end diff -----------
+
+  19) tests\bootstrap.php
+      ---------- begin diff ----------
+--- C:\wamp64\www\Projet_8\tests\bootstrap.php
++++ C:\wamp64\www\Projet_8\tests\bootstrap.php
+@@ -1,11 +1,11 @@
+-<?php
+-
+-use Symfony\Component\Dotenv\Dotenv;
+-
+-require dirname(__DIR__).'/vendor/autoload.php';
+-
+-if (file_exists(dirname(__DIR__).'/config/bootstrap.php')) {
+-    require dirname(__DIR__).'/config/bootstrap.php';
+-} elseif (method_exists(Dotenv::class, 'bootEnv')) {
+-    (new Dotenv())->bootEnv(dirname(__DIR__).'/.env');
+-}
++<?php
++
++use Symfony\Component\Dotenv\Dotenv;
++
++require dirname(__DIR__).'/vendor/autoload.php';
++
++if (file_exists(dirname(__DIR__).'/config/bootstrap.php')) {
++    require dirname(__DIR__).'/config/bootstrap.php';
++} elseif (method_exists(Dotenv::class, 'bootEnv')) {
++    (new Dotenv())->bootEnv(dirname(__DIR__).'/.env');
++}
+
+      ----------- end diff -----------
+
+  20) tests\FixturesTrait.php
+      ---------- begin diff ----------
+--- C:\wamp64\www\Projet_8\tests\FixturesTrait.php
++++ C:\wamp64\www\Projet_8\tests\FixturesTrait.php
+@@ -1,41 +1,41 @@
+-<?php
+-
+-namespace App\Tests;
+-
+-use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
+-use Doctrine\Common\DataFixtures\Purger\ORMPurger;
+-use Doctrine\Common\DataFixtures\ReferenceRepository;
+-use Doctrine\ORM\EntityManagerInterface;
+-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+-
+-trait FixturesTrait
+-{
+-    protected function loadFixtures(array $classNames = [], bool $append = false): ReferenceRepository
+-    {
+-        $container = self::getContainer();
+-        $objectManager = $container->get(EntityManagerInterface::class);
+-        $passwordHasher = $container->get(UserPasswordHasherInterface::class);
+-
+-        $loader = new \Doctrine\Common\DataFixtures\Loader();
+-
+-        foreach ($classNames as $className) {
+-            if ($className === \App\DataFixtures\AppFixtures::class) {
+-                $fixture = new $className($passwordHasher);
+-            } else {
+-                $fixture = new $className();
+-            }
+-            $loader->addFixture($fixture);
+-        }
+-
+-        $purger = new ORMPurger($objectManager);
+-        $executor = new ORMExecutor($objectManager, $purger);
+-
+-        if (!$append) {
+-            $purger->setPurgeMode(ORMPurger::PURGE_MODE_DELETE);
+-        }
+-
+-        $executor->execute($loader->getFixtures());
+-
+-        return new ReferenceRepository($objectManager);
+-    }
+-}
++<?php
++
++namespace App\Tests;
++
++use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
++use Doctrine\Common\DataFixtures\Purger\ORMPurger;
++use Doctrine\Common\DataFixtures\ReferenceRepository;
++use Doctrine\ORM\EntityManagerInterface;
++use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
++
++trait FixturesTrait
++{
++    protected function loadFixtures(array $classNames = [], bool $append = false): ReferenceRepository
++    {
++        $container = self::getContainer();
++        $objectManager = $container->get(EntityManagerInterface::class);
++        $passwordHasher = $container->get(UserPasswordHasherInterface::class);
++
++        $loader = new \Doctrine\Common\DataFixtures\Loader();
++
++        foreach ($classNames as $className) {
++            if (\App\DataFixtures\AppFixtures::class === $className) {
++                $fixture = new $className($passwordHasher);
++            } else {
++                $fixture = new $className();
++            }
++            $loader->addFixture($fixture);
++        }
++
++        $purger = new ORMPurger($objectManager);
++        $executor = new ORMExecutor($objectManager, $purger);
++
++        if (!$append) {
++            $purger->setPurgeMode(ORMPurger::PURGE_MODE_DELETE);
++        }
++
++        $executor->execute($loader->getFixtures());
++
++        return new ReferenceRepository($objectManager);
++    }
++}
+
+      ----------- end diff -----------
+
+  21) tests\Functional\Controller\HomeControllerTest.php
+      ---------- begin diff ----------
+--- C:\wamp64\www\Projet_8\tests\Functional\Controller\HomeControllerTest.php
++++ C:\wamp64\www\Projet_8\tests\Functional\Controller\HomeControllerTest.php
+@@ -1,19 +1,19 @@
+-<?php
+-
+-namespace App\Tests\Functional\Controller;
+-
+-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+-
+-class HomeControllerTest extends WebTestCase
+-{
+-    public function testIndex(): void
+-    {
+-        $client = static::createClient();
+-
+-        $client->request('GET', '/');
+-
+-        $this->assertResponseStatusCodeSame(200);
+-
+-        $this->assertSelectorTextContains('h1', 'Bienvenue sur Todo List');
+-    }
+-}
++<?php
++
++namespace App\Tests\Functional\Controller;
++
++use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
++
++class HomeControllerTest extends WebTestCase
++{
++    public function testIndex(): void
++    {
++        $client = static::createClient();
++
++        $client->request('GET', '/');
++
++        $this->assertResponseStatusCodeSame(200);
++
++        $this->assertSelectorTextContains('h1', 'Bienvenue sur Todo List');
++    }
++}
+
+      ----------- end diff -----------
+
+  22) tests\Functional\Controller\SecurityControllerTest.php
+      ---------- begin diff ----------
+--- C:\wamp64\www\Projet_8\tests\Functional\Controller\SecurityControllerTest.php
++++ C:\wamp64\www\Projet_8\tests\Functional\Controller\SecurityControllerTest.php
+@@ -1,86 +1,86 @@
+-<?php
+-
+-namespace App\Tests\Functional\Controller;
+-
+-use App\DataFixtures\AppFixtures;
+-use App\Entity\User;
+-use App\Tests\FixturesTrait;
+-use Doctrine\ORM\EntityManagerInterface;
+-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+-
+-class SecurityControllerTest extends WebTestCase
+-{
+-    use FixturesTrait;
+-
+-    public function testLoginPageIsSuccessful(): void
+-    {
+-        $client = static::createClient();
+-        $client->request('GET', '/login');
+-
+-        $this->assertResponseIsSuccessful();
+-
+-        $this->assertSelectorExists('form[action="/login_check"]');
+-    }
+-
+-    public function testLoginWithInvalidCredentials(): void
+-    {
+-        $client = static::createClient();
+-        $crawler = $client->request('GET', '/login');
+-
+-        $form = $crawler->selectButton('Se connecter')->form([
+-            '_username' => 'invalid_user',
+-            '_password' => 'invalid_password',
+-        ]);
+-
+-        $client->submit($form);
+-
+-        $this->assertResponseRedirects('/login');
+-        $client->followRedirect();
+-
+-        $this->assertSelectorExists('button', 'Se connecter');
+-    }
+-
+-    public function testLoginCheckWithValidCredentials(): void
+-    {
+-        $client = static::createClient();
+-        $this->loadFixtures([AppFixtures::class]);
+-        $crawler = $client->request('GET', '/login');
+-        $em = self::getContainer()->get(EntityManagerInterface::class);
+-        $user = $em->getRepository(User::class)->findOneBy(['username' => 'AdminUser']);
+-
+-        $form = $crawler->selectButton('Se connecter')->form([
+-            '_username' => $user->getUsername(),
+-            '_password' => 'password1234',
+-        ]);
+-
+-        $client->submit($form);
+-
+-        $this->assertResponseRedirects('/');
+-    }
+-
+-    public function testLoginCheckWithUnvalidCredentials(): void
+-    {
+-        $client = static::createClient();
+-        $this->loadFixtures([AppFixtures::class]);
+-        $crawler = $client->request('GET', '/login');
+-        $em = self::getContainer()->get(EntityManagerInterface::class);
+-        $user = $em->getRepository(User::class)->findOneBy(['username' => 'AdminUser']);
+-
+-        $form = $crawler->selectButton('Se connecter')->form([
+-            '_username' => $user->getUsername(),
+-            '_password' => 'bad_password',
+-        ]);
+-
+-        $client->submit($form);
+-
+-        $this->assertResponseRedirects('/login');
+-    }
+-
+-    public function testLogout(): void
+-    {
+-        $client = static::createClient();
+-        $client->request('GET', '/logout');
+-
+-        $this->assertResponseRedirects('/');
+-    }
+-}
++<?php
++
++namespace App\Tests\Functional\Controller;
++
++use App\DataFixtures\AppFixtures;
++use App\Entity\User;
++use App\Tests\FixturesTrait;
++use Doctrine\ORM\EntityManagerInterface;
++use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
++
++class SecurityControllerTest extends WebTestCase
++{
++    use FixturesTrait;
++
++    public function testLoginPageIsSuccessful(): void
++    {
++        $client = static::createClient();
++        $client->request('GET', '/login');
++
++        $this->assertResponseIsSuccessful();
++
++        $this->assertSelectorExists('form[action="/login_check"]');
++    }
++
++    public function testLoginWithInvalidCredentials(): void
++    {
++        $client = static::createClient();
++        $crawler = $client->request('GET', '/login');
++
++        $form = $crawler->selectButton('Se connecter')->form([
++            '_username' => 'invalid_user',
++            '_password' => 'invalid_password',
++        ]);
++
++        $client->submit($form);
++
++        $this->assertResponseRedirects('/login');
++        $client->followRedirect();
++
++        $this->assertSelectorExists('button', 'Se connecter');
++    }
++
++    public function testLoginCheckWithValidCredentials(): void
++    {
++        $client = static::createClient();
++        $this->loadFixtures([AppFixtures::class]);
++        $crawler = $client->request('GET', '/login');
++        $em = self::getContainer()->get(EntityManagerInterface::class);
++        $user = $em->getRepository(User::class)->findOneBy(['username' => 'AdminUser']);
++
++        $form = $crawler->selectButton('Se connecter')->form([
++            '_username' => $user->getUsername(),
++            '_password' => 'password1234',
++        ]);
++
++        $client->submit($form);
++
++        $this->assertResponseRedirects('/');
++    }
++
++    public function testLoginCheckWithUnvalidCredentials(): void
++    {
++        $client = static::createClient();
++        $this->loadFixtures([AppFixtures::class]);
++        $crawler = $client->request('GET', '/login');
++        $em = self::getContainer()->get(EntityManagerInterface::class);
++        $user = $em->getRepository(User::class)->findOneBy(['username' => 'AdminUser']);
++
++        $form = $crawler->selectButton('Se connecter')->form([
++            '_username' => $user->getUsername(),
++            '_password' => 'bad_password',
++        ]);
++
++        $client->submit($form);
++
++        $this->assertResponseRedirects('/login');
++    }
++
++    public function testLogout(): void
++    {
++        $client = static::createClient();
++        $client->request('GET', '/logout');
++
++        $this->assertResponseRedirects('/');
++    }
++}
+
+      ----------- end diff -----------
+
+  23) tests\Functional\Controller\TaskControllerTest.php
+      ---------- begin diff ----------
+--- C:\wamp64\www\Projet_8\tests\Functional\Controller\TaskControllerTest.php
++++ C:\wamp64\www\Projet_8\tests\Functional\Controller\TaskControllerTest.php
+@@ -1,186 +1,180 @@
+-<?php
+-
+-namespace App\Tests\Functional\Controller;
+-
+-use App\DataFixtures\AppFixtures;
+-use App\Entity\Task;
+-use App\Entity\User;
+-use App\Tests\FixturesTrait;
+-use Doctrine\ORM\EntityManagerInterface;
+-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+-use Symfony\Component\HttpFoundation\Response;
+-
+-class TaskControllerTest extends WebTestCase
+-{
+-    use FixturesTrait;
+-
+-    public function testTaskListPageIsAccessible(): void
+-    {
+-        $client = static::createClient();
+-
+-        $client->request('GET', '/tasks');
+-
+-        $this->assertResponseIsSuccessful();
+-    }
+-
+-    public function testCreateTaskPageIsAccessible(): void
+-    {
+-        $client = static::createClient();
+-
+-        $client->request('GET', '/tasks/create');
+-
+-        $this->assertResponseIsSuccessful();
+-    }
+-
+-    public function testCreateTask(): void
+-    {
+-
+-        $client = static::createClient();
+-        $this->loadFixtures([AppFixtures::class]);
+-        $container = self::getContainer();
+-        $em = $container->get(EntityManagerInterface::class);
+-        $author = $em->getRepository(User::class)->findOneBy(['username' => 'Auteur']);
+-
+-        $this->assertNotNull($author);
+-        $client->loginUser($author);
+-
+-        $crawler = $client->request('GET', '/tasks/create');
+-        $this->assertResponseIsSuccessful();
+-
+-        $form = $crawler->selectButton('Ajouter')->form([
+-
+-            'task[title]' => 'Test Task',
+-            'task[content]' => 'This is a test task',
+-        ]);
+-
+-        $client->submit($form);
+-
+-        $this->assertResponseRedirects('/tasks');
+-
+-        $client->followRedirect();
+-
+-        $this->assertSelectorTextContains('.alert-success', 'La tâche a bien été ajoutée.');
+-
+-    }
+-
+-    public function testEditTaskByAdminOrTheAuthor(): void
+-    {
+-        $client = static::createClient();
+-        $this->loadFixtures([AppFixtures::class]);
+-        $container = self::getContainer();
+-        $em = $container->get(EntityManagerInterface::class);
+-
+-        $user = $em->getRepository(User::class)->findOneBy(['username' => 'Auteur']);
+-        $task = $em->getRepository(Task::class)->findOneBy(['title' => 'Title']);
+-
+-        $client->loginUser($user);
+-
+-        $this->assertSame($user, $task->getUser());
+-
+-        $crawler = $client->request('GET', '/tasks/' . $task->getId() . '/edit');
+-
+-        $this->assertResponseIsSuccessful();
+-
+-        $form = $crawler->selectButton('Modifier')->form([
+-            'task[title]' => 'Updated Test Task',
+-            'task[content]' => 'This is an updated test task',
+-        ]);
+-
+-        $client->submit($form);
+-
+-        $this->assertResponseRedirects('/tasks');
+-
+-        $client->followRedirect();
+-
+-        $updatedTask = $em->getRepository(Task::class)->find($task->getId());
+-        $this->assertSame('Updated Test Task', $updatedTask->getTitle());
+-        $this->assertSame('This is an updated test task', $updatedTask->getContent());
+-        $this->assertSame($user->getId(), $updatedTask->getUser()->getId());
+-        $task->setUser($user);
+-
+-        $this->assertSelectorTextContains('.alert-success', 'La tâche a bien été modifiée.');
+-
+-    }
+-
+-    public function testUnauthorizedUserCannotEditTask(): void
+-    {
+-        $client = static::createClient();
+-        $this->loadFixtures([AppFixtures::class]);
+-        $container = self::getContainer();
+-        $em = $container->get(EntityManagerInterface::class);
+-
+-        $user = $em->getRepository(User::class)->findOneBy(['username' => 'Anonyme']);
+-        $task = $em->getRepository(Task::class)->findOneBy(['title' => 'Title']);
+-
+-        $client->loginUser($user);
+-
+-        $client->request('GET', '/tasks/' . $task->getId() . '/edit');
+-
+-        $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
+-    }
+-
+-    public function testToggleTask(): void
+-    {
+-        $client = static::createClient();
+-        $this->loadFixtures([AppFixtures::class]);
+-        $container = self::getContainer();
+-        $em = $container->get(EntityManagerInterface::class);
+-
+-        $user = $em->getRepository(User::class)->findOneBy(['username' => 'Auteur']);
+-        $task = $em->getRepository(Task::class)->findOneBy(['title' => 'Title']);
+-
+-        $client->loginUser($user);
+-
+-        $client->request('GET', '/tasks/' . $task->getId() . '/toggle');
+-
+-        $em->refresh($task);
+-
+-        $this->assertTrue($task->isDone(), 'La tâche devrait être marquée comme faite après avoir basculé.');
+-
+-        $this->assertResponseRedirects('/tasks');
+-
+-        $client->followRedirect();
+-
+-        $this->assertResponseIsSuccessful();
+-
+-        $this->assertSelectorTextContains('.alert-success', 'La tâche Title a bien été marquée comme faite.');
+-
+-    }
+-
+-    public function testDeleteTaskByAdminOrTheAuthor(): void
+-    {
+-        $client = static::createClient();
+-        $this->loadFixtures([AppFixtures::class]);
+-        $em = self::getContainer()->get(EntityManagerInterface::class);
+-
+-        $adminUser = $em->getRepository(User::class)->findOneBy(['username' => 'AdminUser']);
+-        $task = $em->getRepository(Task::class)->findOneBy(['title' => 'Title']);
+-
+-        $client->loginUser($adminUser);
+-
+-        $client->request('GET', '/tasks/' . $task->getId() . '/delete');
+-
+-        $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
+-
+-        $client->followRedirect();
+-
+-        $this->assertSelectorTextContains('.alert-success', 'La tâche a bien été supprimée !');
+-
+-    }
+-
+-    public function testUnauthorizedUserCannotDeleteTask(): void
+-    {
+-        $client = static::createClient();
+-        $this->loadFixtures([AppFixtures::class]);
+-        $em = self::getContainer()->get(EntityManagerInterface::class);
+-
+-        $user = $em->getRepository(User::class)->findOneBy(['username' => 'Anonyme']);
+-        $task = $em->getRepository(Task::class)->findOneBy(['title' => 'Title']);
+-
+-        $client->loginUser($user);
+-
+-        $client->request('GET', '/tasks/' . $task->getId() . '/delete');
+-
+-        $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
+-    }
+-}
++<?php
++
++namespace App\Tests\Functional\Controller;
++
++use App\DataFixtures\AppFixtures;
++use App\Entity\Task;
++use App\Entity\User;
++use App\Tests\FixturesTrait;
++use Doctrine\ORM\EntityManagerInterface;
++use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
++use Symfony\Component\HttpFoundation\Response;
++
++class TaskControllerTest extends WebTestCase
++{
++    use FixturesTrait;
++
++    public function testTaskListPageIsAccessible(): void
++    {
++        $client = static::createClient();
++
++        $client->request('GET', '/tasks');
++
++        $this->assertResponseIsSuccessful();
++    }
++
++    public function testCreateTaskPageIsAccessible(): void
++    {
++        $client = static::createClient();
++
++        $client->request('GET', '/tasks/create');
++
++        $this->assertResponseIsSuccessful();
++    }
++
++    public function testCreateTask(): void
++    {
++        $client = static::createClient();
++        $this->loadFixtures([AppFixtures::class]);
++        $container = self::getContainer();
++        $em = $container->get(EntityManagerInterface::class);
++        $author = $em->getRepository(User::class)->findOneBy(['username' => 'Auteur']);
++
++        $this->assertNotNull($author);
++        $client->loginUser($author);
++
++        $crawler = $client->request('GET', '/tasks/create');
++        $this->assertResponseIsSuccessful();
++
++        $form = $crawler->selectButton('Ajouter')->form([
++            'task[title]' => 'Test Task',
++            'task[content]' => 'This is a test task',
++        ]);
++
++        $client->submit($form);
++
++        $this->assertResponseRedirects('/tasks');
++
++        $client->followRedirect();
++
++        $this->assertSelectorTextContains('.alert-success', 'La tâche a bien été ajoutée.');
++    }
++
++    public function testEditTaskByAdminOrTheAuthor(): void
++    {
++        $client = static::createClient();
++        $this->loadFixtures([AppFixtures::class]);
++        $container = self::getContainer();
++        $em = $container->get(EntityManagerInterface::class);
++
++        $user = $em->getRepository(User::class)->findOneBy(['username' => 'Auteur']);
++        $task = $em->getRepository(Task::class)->findOneBy(['title' => 'Title']);
++
++        $client->loginUser($user);
++
++        $this->assertSame($user, $task->getUser());
++
++        $crawler = $client->request('GET', '/tasks/'.$task->getId().'/edit');
++
++        $this->assertResponseIsSuccessful();
++
++        $form = $crawler->selectButton('Modifier')->form([
++            'task[title]' => 'Updated Test Task',
++            'task[content]' => 'This is an updated test task',
++        ]);
++
++        $client->submit($form);
++
++        $this->assertResponseRedirects('/tasks');
++
++        $client->followRedirect();
++
++        $updatedTask = $em->getRepository(Task::class)->find($task->getId());
++        $this->assertSame('Updated Test Task', $updatedTask->getTitle());
++        $this->assertSame('This is an updated test task', $updatedTask->getContent());
++        $this->assertSame($user->getId(), $updatedTask->getUser()->getId());
++        $task->setUser($user);
++
++        $this->assertSelectorTextContains('.alert-success', 'La tâche a bien été modifiée.');
++    }
++
++    public function testUnauthorizedUserCannotEditTask(): void
++    {
++        $client = static::createClient();
++        $this->loadFixtures([AppFixtures::class]);
++        $container = self::getContainer();
++        $em = $container->get(EntityManagerInterface::class);
++
++        $user = $em->getRepository(User::class)->findOneBy(['username' => 'Anonyme']);
++        $task = $em->getRepository(Task::class)->findOneBy(['title' => 'Title']);
++
++        $client->loginUser($user);
++
++        $client->request('GET', '/tasks/'.$task->getId().'/edit');
++
++        $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
++    }
++
++    public function testToggleTask(): void
++    {
++        $client = static::createClient();
++        $this->loadFixtures([AppFixtures::class]);
++        $container = self::getContainer();
++        $em = $container->get(EntityManagerInterface::class);
++
++        $user = $em->getRepository(User::class)->findOneBy(['username' => 'Auteur']);
++        $task = $em->getRepository(Task::class)->findOneBy(['title' => 'Title']);
++
++        $client->loginUser($user);
++
++        $client->request('GET', '/tasks/'.$task->getId().'/toggle');
++
++        $em->refresh($task);
++
++        $this->assertTrue($task->isDone(), 'La tâche devrait être marquée comme faite après avoir basculé.');
++
++        $this->assertResponseRedirects('/tasks');
++
++        $client->followRedirect();
++
++        $this->assertResponseIsSuccessful();
++
++        $this->assertSelectorTextContains('.alert-success', 'La tâche Title a bien été marquée comme faite.');
++    }
++
++    public function testDeleteTaskByAdminOrTheAuthor(): void
++    {
++        $client = static::createClient();
++        $this->loadFixtures([AppFixtures::class]);
++        $em = self::getContainer()->get(EntityManagerInterface::class);
++
++        $adminUser = $em->getRepository(User::class)->findOneBy(['username' => 'AdminUser']);
++        $task = $em->getRepository(Task::class)->findOneBy(['title' => 'Title']);
++
++        $client->loginUser($adminUser);
++
++        $client->request('GET', '/tasks/'.$task->getId().'/delete');
++
++        $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
++
++        $client->followRedirect();
++
++        $this->assertSelectorTextContains('.alert-success', 'La tâche a bien été supprimée !');
++    }
++
++    public function testUnauthorizedUserCannotDeleteTask(): void
++    {
++        $client = static::createClient();
++        $this->loadFixtures([AppFixtures::class]);
++        $em = self::getContainer()->get(EntityManagerInterface::class);
++
++        $user = $em->getRepository(User::class)->findOneBy(['username' => 'Anonyme']);
++        $task = $em->getRepository(Task::class)->findOneBy(['title' => 'Title']);
++
++        $client->loginUser($user);
++
++        $client->request('GET', '/tasks/'.$task->getId().'/delete');
++
++        $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
++    }
++}
+
+      ----------- end diff -----------
+
+  24) tests\Functional\Controller\UserControllerTest.php
+      ---------- begin diff ----------
+--- C:\wamp64\www\Projet_8\tests\Functional\Controller\UserControllerTest.php
++++ C:\wamp64\www\Projet_8\tests\Functional\Controller\UserControllerTest.php
+@@ -1,87 +1,86 @@
+-<?php
+-
+-namespace App\Tests\Functional\Controller;
+-
+-use App\DataFixtures\AppFixtures;
+-use App\Entity\User;
+-use App\Tests\FixturesTrait;
+-use Doctrine\ORM\EntityManagerInterface;
+-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+-
+-class UserControllerTest extends WebTestCase
+-{
+-    use FixturesTrait;
+-
+-    public function testShowUsersList(): void
+-    {
+-        $client = static::createClient();
+-        $this->loadFixtures([AppFixtures::class]);
+-        $em = self::getContainer()->get(EntityManagerInterface::class);
+-        $adminUser = $em->getRepository(User::class)->findOneBy(['username' => 'AdminUser']);
+-
+-        $client->loginUser($adminUser);
+-        $client->request('GET', '/users');
+-
+-        $this->assertResponseIsSuccessful();
+-    }
+-
+-    public function testCreateUser(): void
+-    {
+-        $client = static::createClient();
+-        $this->loadFixtures([AppFixtures::class]);
+-        $em = self::getContainer()->get(EntityManagerInterface::class);
+-        $adminUser = $em->getRepository(User::class)->findOneBy(['username' => 'AdminUser']);
+-
+-        $client->loginUser($adminUser);
+-
+-        $crawler = $client->request('GET', '/users/create');
+-
+-        $form = $crawler->selectButton('Ajouter')->form([
+-            'user[username]' => 'Username1',
+-            'user[password][first]' => 'password123',
+-            'user[password][second]' => 'password123',
+-            'user[email]' => 'username1@email.com',
+-            'user[roles]' => ['ROLE_USER', 'ROLE_ADMIN'],
+-        ]);
+-
+-        $client->submit($form);
+-
+-        $this->assertResponseRedirects('/users');
+-
+-        $user = $em->getRepository(User::class)->findOneBy(['username' => 'Username1']);
+-
+-        self::assertEquals('Username1', $user->getUsername());
+-        self::assertEquals('username1@email.com', $user->getEmail());
+-    }
+-
+-    public function testEditUser(): void
+-    {
+-        $client = static::createClient();
+-        $this->loadFixtures([AppFixtures::class]);
+-        $em = self::getContainer()->get(EntityManagerInterface::class);
+-        $adminUser = $em->getRepository(User::class)->findOneBy(['username' => 'AdminUser']);
+-        $user = $em->getRepository(User::class)->findOneBy(['username' => 'Auteur']);
+-
+-        $client->loginUser($adminUser);
+-
+-        $crawler = $client->request('GET', '/users/' . $user->getId() . '/edit');
+-
+-        $form = $crawler->selectButton('Modifier')->form([
+-            'user[username]' => 'UsernameEdited',
+-            'user[password][first]' => 'password123',
+-            'user[password][second]' => 'password123',
+-            'user[email]' => 'username1@email.com',
+-            'user[roles]' => ['ROLE_USER'],
+-        ]);
+-
+-        $client->submit($form);
+-
+-        $this->assertResponseRedirects('/users');
+-
+-        $user = $em->getRepository(User::class)->findOneBy(['username' => 'UsernameEdited']);
+-
+-        self::assertEquals('UsernameEdited', $user->getUsername());
+-        self::assertEquals('username1@email.com', $user->getEmail());
+-    }
+-
+-}
++<?php
++
++namespace App\Tests\Functional\Controller;
++
++use App\DataFixtures\AppFixtures;
++use App\Entity\User;
++use App\Tests\FixturesTrait;
++use Doctrine\ORM\EntityManagerInterface;
++use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
++
++class UserControllerTest extends WebTestCase
++{
++    use FixturesTrait;
++
++    public function testShowUsersList(): void
++    {
++        $client = static::createClient();
++        $this->loadFixtures([AppFixtures::class]);
++        $em = self::getContainer()->get(EntityManagerInterface::class);
++        $adminUser = $em->getRepository(User::class)->findOneBy(['username' => 'AdminUser']);
++
++        $client->loginUser($adminUser);
++        $client->request('GET', '/users');
++
++        $this->assertResponseIsSuccessful();
++    }
++
++    public function testCreateUser(): void
++    {
++        $client = static::createClient();
++        $this->loadFixtures([AppFixtures::class]);
++        $em = self::getContainer()->get(EntityManagerInterface::class);
++        $adminUser = $em->getRepository(User::class)->findOneBy(['username' => 'AdminUser']);
++
++        $client->loginUser($adminUser);
++
++        $crawler = $client->request('GET', '/users/create');
++
++        $form = $crawler->selectButton('Ajouter')->form([
++            'user[username]' => 'Username1',
++            'user[password][first]' => 'password123',
++            'user[password][second]' => 'password123',
++            'user[email]' => 'username1@email.com',
++            'user[roles]' => ['ROLE_USER', 'ROLE_ADMIN'],
++        ]);
++
++        $client->submit($form);
++
++        $this->assertResponseRedirects('/users');
++
++        $user = $em->getRepository(User::class)->findOneBy(['username' => 'Username1']);
++
++        self::assertEquals('Username1', $user->getUsername());
++        self::assertEquals('username1@email.com', $user->getEmail());
++    }
++
++    public function testEditUser(): void
++    {
++        $client = static::createClient();
++        $this->loadFixtures([AppFixtures::class]);
++        $em = self::getContainer()->get(EntityManagerInterface::class);
++        $adminUser = $em->getRepository(User::class)->findOneBy(['username' => 'AdminUser']);
++        $user = $em->getRepository(User::class)->findOneBy(['username' => 'Auteur']);
++
++        $client->loginUser($adminUser);
++
++        $crawler = $client->request('GET', '/users/'.$user->getId().'/edit');
++
++        $form = $crawler->selectButton('Modifier')->form([
++            'user[username]' => 'UsernameEdited',
++            'user[password][first]' => 'password123',
++            'user[password][second]' => 'password123',
++            'user[email]' => 'username1@email.com',
++            'user[roles]' => ['ROLE_USER'],
++        ]);
++
++        $client->submit($form);
++
++        $this->assertResponseRedirects('/users');
++
++        $user = $em->getRepository(User::class)->findOneBy(['username' => 'UsernameEdited']);
++
++        self::assertEquals('UsernameEdited', $user->getUsername());
++        self::assertEquals('username1@email.com', $user->getEmail());
++    }
++}
+
+      ----------- end diff -----------
+
+  25) tests\Unit\Entity\TaskTest.php
+      ---------- begin diff ----------
+--- C:\wamp64\www\Projet_8\tests\Unit\Entity\TaskTest.php
++++ C:\wamp64\www\Projet_8\tests\Unit\Entity\TaskTest.php
+@@ -1,80 +1,80 @@
+-<?php
+-
+-namespace App\Tests\Unit\Entity;
+-
+-use App\Entity\Task;
+-use App\Entity\User;
+-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+-use Symfony\Component\Validator\Validator\ValidatorInterface;
+-
+-class TaskTest extends KernelTestCase
+-{
+-    private ValidatorInterface $validator;
+-
+-    protected function setUp(): void
+-    {
+-        parent::setUp();
+-        $this->validator = self::getContainer()->get(ValidatorInterface::class);
+-    }
+-
+-    public function testTitleCanBeSet(): void
+-    {
+-        $task = new Task();
+-        $task->setTitle('Test Title');
+-
+-        $this->assertEquals('Test Title', $task->getTitle());
+-    }
+-
+-    public function testContentCanBeSet(): void
+-    {
+-        $task = new Task();
+-        $task->setContent('This is the task content.');
+-
+-        $this->assertEquals('This is the task content.', $task->getContent());
+-    }
+-
+-    public function testIsDoneDefaultValue(): void
+-    {
+-        $task = new Task();
+-        $this->assertFalse($task->isDone());
+-    }
+-
+-    public function testToggle(): void
+-    {
+-        $task = new Task();
+-        $task->toggle(true);
+-        $this->assertTrue($task->isDone());
+-
+-        $task->toggle(false);
+-        $this->assertFalse($task->isDone());
+-    }
+-
+-    public function testUserCanBeSet(): void
+-    {
+-        $task = new Task();
+-        $user = new User();
+-        $task->setUser($user);
+-
+-        $this->assertSame($user, $task->getUser());
+-    }
+-
+-    public function testTitleValidation(): void
+-    {
+-        $task = new Task();
+-        $task->setContent('Valid content.');
+-
+-        $violations = $this->validator->validate($task);
+-        $this->assertCount(1, $violations);
+-        $this->assertEquals("Vous devez saisir un titre.", $violations[0]->getMessage());
+-    }
+-
+-    public function testContentValidation(): void
+-    {
+-        $task = new Task();
+-        $task->setTitle('Valid Title');
+-
+-        $violations = $this->validator->validate($task);
+-        $this->assertCount(1, $violations);
+-        $this->assertEquals("Vous devez saisir du contenu.", $violations[0]->getMessage());
+-    }
+-}
++<?php
++
++namespace App\Tests\Unit\Entity;
++
++use App\Entity\Task;
++use App\Entity\User;
++use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
++use Symfony\Component\Validator\Validator\ValidatorInterface;
++
++class TaskTest extends KernelTestCase
++{
++    private ValidatorInterface $validator;
++
++    protected function setUp(): void
++    {
++        parent::setUp();
++        $this->validator = self::getContainer()->get(ValidatorInterface::class);
++    }
++
++    public function testTitleCanBeSet(): void
++    {
++        $task = new Task();
++        $task->setTitle('Test Title');
++
++        $this->assertEquals('Test Title', $task->getTitle());
++    }
++
++    public function testContentCanBeSet(): void
++    {
++        $task = new Task();
++        $task->setContent('This is the task content.');
++
++        $this->assertEquals('This is the task content.', $task->getContent());
++    }
++
++    public function testIsDoneDefaultValue(): void
++    {
++        $task = new Task();
++        $this->assertFalse($task->isDone());
++    }
++
++    public function testToggle(): void
++    {
++        $task = new Task();
++        $task->toggle(true);
++        $this->assertTrue($task->isDone());
++
++        $task->toggle(false);
++        $this->assertFalse($task->isDone());
++    }
++
++    public function testUserCanBeSet(): void
++    {
++        $task = new Task();
++        $user = new User();
++        $task->setUser($user);
++
++        $this->assertSame($user, $task->getUser());
++    }
++
++    public function testTitleValidation(): void
++    {
++        $task = new Task();
++        $task->setContent('Valid content.');
++
++        $violations = $this->validator->validate($task);
++        $this->assertCount(1, $violations);
++        $this->assertEquals('Vous devez saisir un titre.', $violations[0]->getMessage());
++    }
++
++    public function testContentValidation(): void
++    {
++        $task = new Task();
++        $task->setTitle('Valid Title');
++
++        $violations = $this->validator->validate($task);
++        $this->assertCount(1, $violations);
++        $this->assertEquals('Vous devez saisir du contenu.', $violations[0]->getMessage());
++    }
++}
+
+      ----------- end diff -----------
+
+  26) tests\Unit\Entity\UserTest.php
+      ---------- begin diff ----------
+--- C:\wamp64\www\Projet_8\tests\Unit\Entity\UserTest.php
++++ C:\wamp64\www\Projet_8\tests\Unit\Entity\UserTest.php
+@@ -1,107 +1,107 @@
+-<?php
+-
+-namespace App\Tests\Unit\Entity;
+-
+-use App\Entity\User;
+-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+-use Symfony\Component\Validator\Validator\ValidatorInterface;
+-
+-class UserTest extends KernelTestCase
+-{
+-    private ValidatorInterface $validator;
+-
+-    protected function setUp(): void
+-    {
+-        parent::setUp();
+-        $this->validator = self::getContainer()->get(ValidatorInterface::class);
+-    }
+-
+-    public function testUsernameCanBeSet(): void
+-    {
+-        $user = new User();
+-        $user->setUsername('Username_1');
+-
+-        $this->assertEquals('Username_1', $user->getUsername());
+-    }
+-
+-    public function testEmailCanBeSet(): void
+-    {
+-        $user = new User();
+-        $email = 'test@example.com';
+-        $user->setEmail($email);
+-
+-        $this->assertEquals($email, $user->getEmail());
+-    }
+-
+-    public function testPasswordCanBeSet(): void
+-    {
+-        $user = new User();
+-        $password = 'password123';
+-        $user->setPassword($password);
+-
+-        $this->assertEquals($password, $user->getPassword());
+-    }
+-
+-    public function testRolesCanBeSet(): void
+-    {
+-        $user = new User();
+-        $roles = ['ROLE_ADMIN'];
+-        $user->setRoles($roles);
+-
+-        $resultingRoles = $user->getRoles();
+-
+-        $this->assertContains('ROLE_ADMIN', $resultingRoles);
+-        $this->assertContains('ROLE_USER', $resultingRoles);
+-
+-        $this->assertCount(2, $resultingRoles);
+-    }
+-
+-    public function testGetUserIdentifier(): void
+-    {
+-        $user = new User();
+-        $email = 'test@example.com';
+-        $user->setEmail($email);
+-
+-        $this->assertEquals($email, $user->getUserIdentifier());
+-    }
+-
+-    public function testDefaultRoleUserIsPresent(): void
+-    {
+-        $user = new User();
+-        $this->assertContains('ROLE_USER', $user->getRoles());
+-    }
+-
+-    public function testEraseCredentials(): void
+-    {
+-        $user = new User();
+-        $user->eraseCredentials();
+-
+-        $this->assertTrue(true);
+-    }
+-
+-    public function testEmailValidation(): void
+-    {
+-        $user = new User();
+-        $user
+-            ->setUsername('username')
+-            ->setEmail('invalid-email');
+-
+-        $violations = $this->validator->validate($user);
+-
+-        $this->assertGreaterThan(0, count($violations));
+-        $this->assertEquals("Le format de l'adresse n'est pas correct.", $violations[0]->getMessage());
+-    }
+-
+-    public function testUsernameValidation(): void
+-    {
+-        $user = new User();
+-        $user
+-            ->setEmail('test@example.com')
+-            ->setUsername('');
+-
+-        $violations = $this->validator->validate($user);
+-
+-        $this->assertCount(1, $violations);
+-        $this->assertEquals("Vous devez saisir un nom d'utilisateur.", $violations[0]->getMessage());
+-    }
+-}
++<?php
++
++namespace App\Tests\Unit\Entity;
++
++use App\Entity\User;
++use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
++use Symfony\Component\Validator\Validator\ValidatorInterface;
++
++class UserTest extends KernelTestCase
++{
++    private ValidatorInterface $validator;
++
++    protected function setUp(): void
++    {
++        parent::setUp();
++        $this->validator = self::getContainer()->get(ValidatorInterface::class);
++    }
++
++    public function testUsernameCanBeSet(): void
++    {
++        $user = new User();
++        $user->setUsername('Username_1');
++
++        $this->assertEquals('Username_1', $user->getUsername());
++    }
++
++    public function testEmailCanBeSet(): void
++    {
++        $user = new User();
++        $email = 'test@example.com';
++        $user->setEmail($email);
++
++        $this->assertEquals($email, $user->getEmail());
++    }
++
++    public function testPasswordCanBeSet(): void
++    {
++        $user = new User();
++        $password = 'password123';
++        $user->setPassword($password);
++
++        $this->assertEquals($password, $user->getPassword());
++    }
++
++    public function testRolesCanBeSet(): void
++    {
++        $user = new User();
++        $roles = ['ROLE_ADMIN'];
++        $user->setRoles($roles);
++
++        $resultingRoles = $user->getRoles();
++
++        $this->assertContains('ROLE_ADMIN', $resultingRoles);
++        $this->assertContains('ROLE_USER', $resultingRoles);
++
++        $this->assertCount(2, $resultingRoles);
++    }
++
++    public function testGetUserIdentifier(): void
++    {
++        $user = new User();
++        $email = 'test@example.com';
++        $user->setEmail($email);
++
++        $this->assertEquals($email, $user->getUserIdentifier());
++    }
++
++    public function testDefaultRoleUserIsPresent(): void
++    {
++        $user = new User();
++        $this->assertContains('ROLE_USER', $user->getRoles());
++    }
++
++    public function testEraseCredentials(): void
++    {
++        $user = new User();
++        $user->eraseCredentials();
++
++        $this->assertTrue(true);
++    }
++
++    public function testEmailValidation(): void
++    {
++        $user = new User();
++        $user
++            ->setUsername('username')
++            ->setEmail('invalid-email');
++
++        $violations = $this->validator->validate($user);
++
++        $this->assertGreaterThan(0, count($violations));
++        $this->assertEquals("Le format de l'adresse n'est pas correct.", $violations[0]->getMessage());
++    }
++
++    public function testUsernameValidation(): void
++    {
++        $user = new User();
++        $user
++            ->setEmail('test@example.com')
++            ->setUsername('');
++
++        $violations = $this->validator->validate($user);
++
++        $this->assertCount(1, $violations);
++        $this->assertEquals("Vous devez saisir un nom d'utilisateur.", $violations[0]->getMessage());
++    }
++}
+
+      ----------- end diff -----------
+
+
+Found 26 of 26 files that can be fixed in 1.524 seconds, 18.00 MB memory used

@@ -18,9 +18,9 @@ class UserType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, [
-                'label' => "Nom d'utilisateur",
+                'label' => "Username",
                 'attr' => [
-                    'placeholder' => 'Entrez le nom d\'utilisateur',
+                    'placeholder' => 'Enter the username',
                 ],
             ])
             ->add('password', RepeatedType::class, [
@@ -28,32 +28,32 @@ class UserType extends AbstractType
                 'invalid_message' => 'Les deux mots de passe doivent correspondre.',
                 'required' => true,
                 'first_options' => [
-                    'label' => 'Mot de passe',
+                    'label' => 'Password',
                     'attr' => [
-                        'placeholder' => 'Entrez le mot de passe',
+                        'placeholder' => 'Enter the password',
                     ],
                 ],
                 'second_options' => [
-                    'label' => 'Tapez le mot de passe à nouveau',
+                    'label' => 'Confirm the password',
                     'attr' => [
-                        'placeholder' => 'Confirmez le mot de passe',
+                        'placeholder' => 'Enter the password again',
                     ],
                 ],
             ])
             ->add('email', EmailType::class, [
-                'label' => 'Adresse email',
+                'label' => 'Email address',
                 'attr' => [
-                    'placeholder' => 'Entrez l\'adresse email',
+                    'placeholder' => 'Enter your email address',
                 ],
             ])
             ->add('roles', ChoiceType::class, [
                 'choices' => [
-                    'Utilisateur' => 'ROLE_USER',
-                    'Administrateur' => 'ROLE_ADMIN',
+                    'User' => 'ROLE_USER',
+                    'Administrator' => 'ROLE_ADMIN',
                 ],
                 'multiple' => true,
                 'expanded' => true,
-                'label' => 'Rôles',
+                'label' => 'Roles',
             ]);
     }
 
