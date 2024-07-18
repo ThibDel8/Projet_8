@@ -1,5 +1,64 @@
 body {
-    padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header{
+    width: calc(100% - 30px);
+    padding: 15px;
+    background-color: #e3f2fd;
+}
+
+nav .container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav .menu a{
+    margin-right: 10px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: black;
+}
+
+.page_content {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+.alert {
+    position: absolute;
+    top: 100px;
+    right: 15px;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.alert-success {
+    background-color: green;
+    color: greenyellow;
+}
+
+.alert-danger {
+    background-color: rgb(102, 25, 25);
+    color: #d17581;
 }
 
 .slide-image {
@@ -16,12 +75,18 @@ body {
 }
 
 .caption {
-    height: 130px;
-    overflow: hidden;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .caption h4 {
-    white-space: nowrap;
+    margin: 3px;
+}
+
+.is_done {
+    color: green;
 }
 
 .thumbnail img {
@@ -36,6 +101,9 @@ body {
 
 .thumbnail {
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .thumbnail .caption-full {
@@ -43,6 +111,63 @@ body {
     color: #333;
 }
 
+.col-md-12 {
+    width: 100%;
+}
+
+.col-md-12 div {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.col-md-12 div a {
+    text-decoration: none;
+    color: black;
+    font-size: 1.1rem;
+
+}
+
+.col-md-12 div form,
+.col-md-12 div .corps,
+.col-md-12 div form div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.col-md-12 .task_list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.col-sm-4 {
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+    background-color: #e3f2fd;
+}
+
+.col-md-12 form {
+    margin-bottom: 30px;
+}
+
+.btn-sm {
+    margin: 5px;
+}
+
+hr {
+    width: 90%;
+    margin-top: 50px;
+}
+
 footer {
-    margin: 50px 0;
+    width: 90%;
+    display: flex;
+    justify-content: center;
 }
