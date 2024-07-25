@@ -118,7 +118,6 @@ h1 {
 .col-md-12 div {
     padding: 10px;
     display: flex;
-    justify-content: space-between;
 
 }
 
@@ -135,13 +134,26 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-
 }
 
-.col-md-12 .task_list {
+.corps {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.col-md-12 {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.task_list {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
 .col-sm-4 {

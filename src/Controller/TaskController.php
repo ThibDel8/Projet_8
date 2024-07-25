@@ -96,10 +96,11 @@ class TaskController extends AbstractController
     public function deleteTask(Task $task, EntityManagerInterface $em): Response
     {
         $user = $this->getUser();
+        $author = $task->getUser();
         $isAnonymeAuthor = 'Anonyme' === $task->getUser()->getUsername();
         $isAdmin = $this->isGranted('ROLE_ADMIN');
 
-        if ((false === $isAnonymeAuthor && $user === $task->getUser()) || true === $isAdmin) {
+        if ($author === $user || ($isAnonymeAuthor && $isAdmin)) {
             $em->remove($task);
             $em->flush();
 
@@ -107,7 +108,7 @@ class TaskController extends AbstractController
         } else {
             $this->addFlash('error', 'Vous ne pouvez pas supprimer cette tâche !');
 
-            return new Response('Forbidden', Response::HTTP_FORBIDDEN);
+            return $this->redirectToRoute('error403');
         }
 
         return $this->redirectToRoute('task_list');

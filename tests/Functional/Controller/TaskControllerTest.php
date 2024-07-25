@@ -26,6 +26,11 @@ class TaskControllerTest extends WebTestCase
     public function testCreateTaskPageIsAccessible(): void
     {
         $client = static::createClient();
+        $this->loadFixtures([AppFixtures::class]);
+        $container = self::getContainer();
+        $em = $container->get(EntityManagerInterface::class);
+        $user = $em->getRepository(User::class)->findOneBy(['username' => 'AdminUser']);
+        $client->loginUser($user);
 
         $client->request('GET', '/tasks/create');
 
@@ -74,7 +79,7 @@ class TaskControllerTest extends WebTestCase
 
         $this->assertSame($user, $task->getUser());
 
-        $crawler = $client->request('GET', '/tasks/'.$task->getId().'/edit');
+        $crawler = $client->request('GET', '/tasks/' . $task->getId() . '/edit');
 
         $this->assertResponseIsSuccessful();
 
@@ -110,7 +115,7 @@ class TaskControllerTest extends WebTestCase
 
         $client->loginUser($user);
 
-        $client->request('GET', '/tasks/'.$task->getId().'/edit');
+        $client->request('GET', '/tasks/' . $task->getId() . '/edit');
 
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
@@ -127,7 +132,7 @@ class TaskControllerTest extends WebTestCase
 
         $client->loginUser($user);
 
-        $client->request('GET', '/tasks/'.$task->getId().'/toggle');
+        $client->request('GET', '/tasks/' . $task->getId() . '/toggle');
 
         $em->refresh($task);
 
@@ -153,7 +158,7 @@ class TaskControllerTest extends WebTestCase
 
         $client->loginUser($adminUser);
 
-        $client->request('GET', '/tasks/'.$task->getId().'/delete');
+        $client->request('GET', '/tasks/' . $task->getId() . '/delete');
 
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
 
@@ -173,7 +178,7 @@ class TaskControllerTest extends WebTestCase
 
         $client->loginUser($user);
 
-        $client->request('GET', '/tasks/'.$task->getId().'/delete');
+        $client->request('GET', '/tasks/' . $task->getId() . '/delete');
 
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
