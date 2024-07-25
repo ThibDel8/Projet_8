@@ -39,10 +39,16 @@ class AppFixtures extends Fixture
             ->setContent('This is a content.')
             ->setUser($author);
 
+        $task2 = new Task();
+        $task2->setTitle('Title2')
+            ->setContent('This is a content2.')
+            ->setUser($adminUser);
+
         $manager->persist($author);
         $manager->persist($adminUser);
         $manager->persist($anonymeUser);
         $manager->persist($task);
+        $manager->persist($task2);
         $manager->flush();
     }
 }

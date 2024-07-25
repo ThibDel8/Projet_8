@@ -147,19 +147,21 @@ class TaskControllerTest extends WebTestCase
         $this->assertSelectorTextContains('.alert-success', 'La tâche Title a bien été marquée comme faite.');
     }
 
-    public function testDeleteTaskByAdminOrTheAuthor(): void
+    public function testDeleteTaskByHisAuthor(): void
     {
         $client = static::createClient();
         $this->loadFixtures([AppFixtures::class]);
         $em = self::getContainer()->get(EntityManagerInterface::class);
 
-        $adminUser = $em->getRepository(User::class)->findOneBy(['username' => 'AdminUser']);
-        $task = $em->getRepository(Task::class)->findOneBy(['title' => 'Title']);
+        $user = $em->getRepository(User::class)->findOneBy(['username' => 'AdminUser']);
+        $task = $em->getRepository(Task::class)->findOneBy(['title' => 'Title2']);
+        $author = $task->getUser();
 
-        $client->loginUser($adminUser);
+        $client->loginUser($user);
 
         $client->request('GET', '/tasks/' . $task->getId() . '/delete');
 
+        $this->assertSame($user, $author);
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
 
         $client->followRedirect();
@@ -173,12 +175,14 @@ class TaskControllerTest extends WebTestCase
         $this->loadFixtures([AppFixtures::class]);
         $em = self::getContainer()->get(EntityManagerInterface::class);
 
-        $user = $em->getRepository(User::class)->findOneBy(['username' => 'Anonyme']);
+        $user = $em->getRepository(User::class)->findOneBy(['username' => 'AdminUser']);
         $task = $em->getRepository(Task::class)->findOneBy(['title' => 'Title']);
+        $author = $task->getUser();
 
         $client->loginUser($user);
 
         $client->request('GET', '/tasks/' . $task->getId() . '/delete');
+        $this->assertNotSame($user, $author);
 
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }

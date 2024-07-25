@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class TaskController extends AbstractController
@@ -97,7 +98,7 @@ class TaskController extends AbstractController
     {
         $user = $this->getUser();
         $author = $task->getUser();
-        $isAnonymeAuthor = 'Anonyme' === $task->getUser()->getUsername();
+        $isAnonymeAuthor = 'Anonyme' === $author->getUsername();
         $isAdmin = $this->isGranted('ROLE_ADMIN');
 
         if ($author === $user || ($isAnonymeAuthor && $isAdmin)) {
@@ -108,7 +109,7 @@ class TaskController extends AbstractController
         } else {
             $this->addFlash('error', 'Vous ne pouvez pas supprimer cette tâche !');
 
-            return $this->redirectToRoute('error403');
+            throw new AccessDeniedHttpException('Vous ne pouvez pas supprimer cette tâche !');
         }
 
         return $this->redirectToRoute('task_list');
